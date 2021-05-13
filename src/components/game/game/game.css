@@ -1,0 +1,47 @@
+.game {
+
+}
+
+.game__head {
+  display: flex;
+  justify-content: space-between;
+
+  background-color: #adadad;
+
+  font-weight: 600;
+}
+
+.game__player {
+
+}
+
+.game-player {
+
+}
+
+.game-player__name {
+
+}
+
+.game-player__cash {
+  margin: 0 0 0 10px;
+}
+
+.part-game {
+  border-bottom: 1px solid black;
+}
+
+.part-game__title {
+  font-size: 16px;
+
+  text-align: center;
+}
+
+.part-game__inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.part-game__item {
+
+}

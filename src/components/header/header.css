@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 5px;
+
+  background-color: #000037;
+
+  color: white;
+}
+
+.header__nav {
+
+}
+
+.header__list {
+
+}
+
+.header-list {
+
+}
+
+.header-list__item {
+
+}
+
+.header__logo {
+  width: 70px;
+  height: 70px;
+
+  overflow: hidden;
+
+  border: .1px solid white;
+
+  border-radius: 100px;
+}
+
+.header__img {
+  display: block;
+
+  object-fit: cover;
+}

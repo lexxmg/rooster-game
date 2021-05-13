@@ -1,0 +1,62 @@
+.party-form-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.party-form {
+  width: 1024px;
+  min-height: 60px;
+
+  background-color: white;
+}
+
+.party-form__content {
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.party-form__player {
+
+}
+
+.party-form-player {
+  width: 320px;
+
+  padding: 5px;
+}
+
+.party-form-player-title__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 0 0 10px 0;
+}
+
+.party-form-player-title__player {
+  margin: 0 10px 0 0;
+}
+
+.party-form-player-title__score {
+
+}
+
+.party-form__btn-container {
+  width: 100%;
+}
+
+.party-form__btn {
+
+}

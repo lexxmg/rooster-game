@@ -1,0 +1,15 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* overflow: hidden; */
+
+  min-height: 100vh;
+}
+
+.app__main {
+  flex-grow: 1;
+
+  background-image: url(./assets/images/sea-green-scratone.png);
+}

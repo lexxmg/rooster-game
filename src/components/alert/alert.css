@@ -1,0 +1,38 @@
+.alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.alert__content {
+  width: 300px;
+
+  padding: 5px;
+
+  background-color: white;
+
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.alert__text {
+
+}
+
+.alert__inner {
+  display: flex;
+
+  margin: 20px 0 0 0;
+}
+
+.alert__btn {
+
+}
