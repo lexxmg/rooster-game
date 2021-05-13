@@ -18,6 +18,10 @@ const PartyForm = (props) => {
   // console.log(party.length !== 0);
   const [ scoreCount, setCountScore ] = React.useState([0, 1, 2, 3, 4, 5]);
 
+  React.useEffect(() => {
+    console.log(party);
+  }, [party]);
+
   const isTouched = (arr, id) => {
     return arr.find(item => {
       return item.id === id;
@@ -41,6 +45,20 @@ const PartyForm = (props) => {
 
   const isMaxJackCount = (arr) => {
     return arr.filter(elem => elem.isJack).length >= 2;
+  }
+
+  const pointCalc = (score, currentPoint, getJack) => {
+    if ( score !== 0 && !getJack) {
+      return currentPoint - score;
+    } else if ( score !== 0 && getJack ) {
+      return currentPoint - ( score + 5 );
+    } else if ( score === 0 && currentPoint <= 10 && !getJack ) {
+      return currentPoint + 5;
+    } else if ( score === 0 && currentPoint > 10 && !getJack ) {
+      return currentPoint;
+    } else if ( score === 0 && getJack ) {
+      return currentPoint;
+    }
   }
 
   const declOfNum = (number, titles) => {
@@ -67,6 +85,8 @@ const PartyForm = (props) => {
                     <span className="party-form-player-title__score">
                       {party[i].score} - {declOfNum(party[i].score, ['взятка', 'взятки', 'взяток'])}
                     </span>
+                    {party[i].cross && <span> +</span>}
+                    {party[i].wheel && <span> o</span>}
                   </div>
 
                   <div className="party-form-player__options">
@@ -89,7 +109,17 @@ const PartyForm = (props) => {
                           <button className="" key={j} onClick={() => {
                             setParty( party.map(obj => {
                                 if (obj.id === item.id) {
-                                  return {...obj, score: (el === 0) ? el : getJack(party, item.id) ? el + 5 : el, isTouched: true};
+                                  return {...obj,
+                                    score: (el === 0)
+                                      ? el
+                                      : getJack(party, item.id)
+                                          ? el + 5
+                                          : el,
+                                    isTouched: true,
+                                    wheel: ( (el === 0) && !getJack(party, item.id) ) || false,
+                                    cross: getJack(party, item.id) && el === 0,
+                                    point: pointCalc(el, party[i].point, getJack(party, item.id))
+                                  };
                                 } else {
                                   return obj;
                                 }
