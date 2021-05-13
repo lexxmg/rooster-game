@@ -5,7 +5,13 @@ import React from 'react';
 const PartyForm = (props) => {
   const { setShow, setPartyGame, players } = props;
 
-  const initialParty = players.map(item => ({id:item.id, score: 0, isTouched: false, isJack: false}));
+  const initialParty = players.map(item => {
+    return {
+        id:item.id, score: 0, point: item.point,
+        isTouched: false, isJack: false, cross: false,
+        wheel: false
+      }
+  });
   const [ party, setParty ] = React.useState(initialParty);
   //const [ move, setMove ] = React.useState(false);
 

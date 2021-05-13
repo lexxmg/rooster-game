@@ -48,9 +48,9 @@ const gameReducer = (state, action) => {
   switch (action.type) {
     case SET_NEW_PLAYER:
       const id = (+new Date()).toString(16);
-      const score = 15;
+      const point = 15;
 
-      return {...state, players: [...state.players, {...action.player, id, score}]};
+      return {...state, players: [...state.players, {...action.player, id, point}]};
     case SET_PLAYER_SCORE:
         const newScorePlayers = state.party[state.party.length - 1].players.map(item => {
           if (item.id === action.id) {
@@ -71,7 +71,9 @@ const gameReducer = (state, action) => {
       const scorePlayers = state.players.map(item => {
         for (let el of action.arr) {
           if (el.id === item.id) {
-            return {...item, score: el.score, jack: el.isJack};
+            return {...item, score: el.score, point: el.point,
+              jack: el.isJack, cross: el.cross, wheel: el.wheel
+            }  
           }
         }
 

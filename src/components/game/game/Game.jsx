@@ -19,7 +19,7 @@ const Game = (props) => {
         />
       }
 
-      <div className="game__head">
+      <div className="game__head fixed-container">
         {
           players.map(item => {
             return (
