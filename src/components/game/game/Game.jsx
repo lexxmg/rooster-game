@@ -4,7 +4,7 @@ import React from 'react';
 import PartyForm from '../party-form/PartyForm';
 
 const Game = (props) => {
-  const { players, party } = props;
+  const { players, party, setPlayerPoint } = props;
 
   const [ showForm, setShowForm ] = React.useState(false);
 
@@ -14,6 +14,7 @@ const Game = (props) => {
         showForm &&
         <PartyForm
           setShow={setShowForm}
+          setPlayerPoint={setPlayerPoint}
           setPartyGame={props.setPartyGame}
           players={props.players}
         />
@@ -24,6 +25,7 @@ const Game = (props) => {
           players.map(item => {
             return (
               <div className="game__player game-player"  key={item.id}>
+                <span>{item.point} </span>
                 <span className="game-player__name">{item.name}</span>
                 <span className="game-player__cash">{item.cash} руб.</span>
               </div>

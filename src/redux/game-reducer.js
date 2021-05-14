@@ -3,7 +3,7 @@ const SET_NEW_PLAYER = 'SET_NEW_PLAYER',
       SET_PARTY_GAME = 'SET_PARTY_GAME',
       DELETE_PLAYER = 'DELETE_PLAYER',
       RESET_GAME = 'RESET_GAME',
-      SET_PLAYER_SCORE = 'SET_PLAYER_SCORE';
+      SET_PLAYER_POINT = 'SET_PLAYER_POINT';
 
 //const playerExample = {id: 1, name: 'lexx', cash: 0};
 
@@ -35,12 +35,10 @@ export const setPartyGame = (arr) => {
   };
 }
 
-// arr = [{id: score}, {id: score}, {id: score}]
-export const setPlayerScore = (id, score) => {
+export const setPlayerPoint = (arr) => {
   return {
-    type: SET_PLAYER_SCORE,
-    id,
-    score
+    type: SET_PLAYER_POINT,
+    arr
   }
 }
 
@@ -51,16 +49,6 @@ const gameReducer = (state, action) => {
       const point = 15;
 
       return {...state, players: [...state.players, {...action.player, id, point}]};
-    case SET_PLAYER_SCORE:
-        const newScorePlayers = state.party[state.party.length - 1].players.map(item => {
-          if (item.id === action.id) {
-            return {...item, score: action.score};
-          } else {
-            return item;
-          }
-        });
-        console.log(newScorePlayers);
-        return {...state};
     case DELETE_PLAYER:
       return {...state, players: state.players.filter(item => {
           return item.id !== action.id;
@@ -73,7 +61,7 @@ const gameReducer = (state, action) => {
           if (el.id === item.id) {
             return {...item, score: el.score, point: el.point,
               jack: el.isJack, cross: el.cross, wheel: el.wheel
-            }  
+            }
           }
         }
 
@@ -81,6 +69,13 @@ const gameReducer = (state, action) => {
       });
 
       return {...state, party: [...state.party, {id: (+new Date()).toString(16), data, players: scorePlayers}]};
+    case SET_PLAYER_POINT:
+      const newPoint = state.players.map((item, i) => {
+        return {...item, point: action.arr.find(el => el.id === item.id).point};
+      });
+      console.log(newPoint);
+
+      return {...state, players: newPoint};
     case RESET_GAME:
       return {...state, players: [], party: []};
     default: return state;

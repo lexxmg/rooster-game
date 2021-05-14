@@ -3,7 +3,7 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, setPartyGame, players } = props;
+  const { setShow, setPartyGame, players, setPlayerPoint } = props;
 
   const initialParty = players.map(item => {
     return {
@@ -166,6 +166,7 @@ const PartyForm = (props) => {
             onClick={() => {
               //const arr = [{id: players[0].id, score: 5}, {id: players[1].id, score: 0}];
               setPartyGame(party);
+              setPlayerPoint(party);
               setParty(initialParty);
               setCountScore([0, 1, 2, 3, 4, 5]);
               setShow(false);

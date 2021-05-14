@@ -2,7 +2,7 @@
 import React from 'react';
 import GameWrapper from './game-wrapper/GameWrapper';
 import { connect } from 'react-redux';
-import { setNewPlayer, setPartyGame, resetGame, setPlayerScore } from '../../redux/game-reducer';
+import { setNewPlayer, setPartyGame, resetGame, setPlayerPoint } from '../../redux/game-reducer';
 
 //const playerExample = {name: 'lexx', cash: 0};
 
@@ -25,5 +25,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     setNewPlayer, setPartyGame,
-    resetGame, setPlayerScore
+    resetGame, setPlayerPoint
   })(GameWrapperContainer);

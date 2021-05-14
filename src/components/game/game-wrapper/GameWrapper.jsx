@@ -6,7 +6,7 @@ import Game from '../game/Game';
 import FormPlayerContainer from '../../form-player/FormPlayerComtainer';
 
 const GameWrapper = (props) => {
-  const { setPartyGame, party, players, resetGame, setPlayerScore } = props;
+  const { setPartyGame, party, players, resetGame, setPlayerPoint } = props;
 
   const [ isNewGame, setIsNewGame ] = React.useState(false);
   const [ showConfirm, setShowConfirm ] = React.useState(false);
@@ -36,7 +36,7 @@ const GameWrapper = (props) => {
       {
         isNewGame
           ? <FormPlayerContainer setIsNewGame={setIsNewGame}/>
-          : <Game players={players} party={party} setPartyGame={setPartyGame} setPlayerScore={setPlayerScore} />
+          : <Game players={players} party={party} setPartyGame={setPartyGame} setPlayerPoint={setPlayerPoint} />
       }
     </div>
   )
