@@ -73,7 +73,7 @@ const gameReducer = (state, action) => {
       const newPoint = state.players.map((item, i) => {
         return {...item, point: action.arr.find(el => el.id === item.id).point};
       });
-      console.log(newPoint);
+      //console.log(newPoint);
 
       return {...state, players: newPoint};
     case RESET_GAME:

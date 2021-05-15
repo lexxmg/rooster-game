@@ -7,7 +7,7 @@ const PartyForm = (props) => {
 
   const initialParty = players.map(item => {
     return {
-        id:item.id, score: 0, point: item.point,
+        id:item.id, name: item.name, score: 0, point: item.point,
         isTouched: false, isJack: false, cross: false,
         wheel: false
       }
@@ -19,7 +19,12 @@ const PartyForm = (props) => {
   const [ scoreCount, setCountScore ] = React.useState([0, 1, 2, 3, 4, 5]);
 
   React.useEffect(() => {
-    console.log(party);
+    //console.log(party);
+    const win = party.find((item) => item.point <= 0);
+
+    if ( win ) {
+      console.log(win.name, 'выиграл');
+    }
   }, [party]);
 
   const isTouched = (arr, id) => {
