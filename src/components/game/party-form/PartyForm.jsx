@@ -3,13 +3,13 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, setPartyGame, players, setPlayerPoint } = props;
+  const { setShow, setPartyGame, players, setPlayerPoint, setPartyWin } = props;
 
   const initialParty = players.map(item => {
     return {
         id:item.id, name: item.name, score: 0, point: item.point,
         isTouched: false, isJack: false, cross: false,
-        wheel: false
+        wheel: false, isWin: false
       }
   });
   const [ party, setParty ] = React.useState(initialParty);
@@ -24,8 +24,11 @@ const PartyForm = (props) => {
 
     if ( win ) {
       console.log(win.name, 'выиграл');
+      console.log(party);
+      setPartyWin(party);
+      setShow(false);
     }
-  }, [party]);
+  }, [party, setPartyWin, setShow]);
 
   const isTouched = (arr, id) => {
     return arr.find(item => {
@@ -114,6 +117,8 @@ const PartyForm = (props) => {
                           <button className="" key={j} onClick={() => {
                             setParty( party.map(obj => {
                                 if (obj.id === item.id) {
+                                  const point = pointCalc(el, party[i].point, getJack(party, item.id));
+
                                   return {...obj,
                                     score: (el === 0)
                                       ? el
@@ -123,7 +128,8 @@ const PartyForm = (props) => {
                                     isTouched: true,
                                     wheel: ( (el === 0) && !getJack(party, item.id) ) || false,
                                     cross: getJack(party, item.id) && el === 0,
-                                    point: pointCalc(el, party[i].point, getJack(party, item.id))
+                                    point: point,
+                                    isWin: point <= 0
                                   };
                                 } else {
                                   return obj;

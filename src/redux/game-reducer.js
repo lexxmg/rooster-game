@@ -3,7 +3,8 @@ const SET_NEW_PLAYER = 'SET_NEW_PLAYER',
       SET_PARTY_GAME = 'SET_PARTY_GAME',
       DELETE_PLAYER = 'DELETE_PLAYER',
       RESET_GAME = 'RESET_GAME',
-      SET_PLAYER_POINT = 'SET_PLAYER_POINT';
+      SET_PLAYER_POINT = 'SET_PLAYER_POINT',
+      SET_PARTY_WIN = 'SET_PARTY_WIN';
 
 //const playerExample = {id: 1, name: 'lexx', cash: 0};
 
@@ -34,6 +35,12 @@ export const setPartyGame = (arr) => {
     arr
   };
 }
+export const setPartyWin = (arr) => {
+  return {
+    type: SET_PARTY_WIN,
+    arr
+  };
+}
 
 export const setPlayerPoint = (arr) => {
   return {
@@ -60,7 +67,8 @@ const gameReducer = (state, action) => {
         for (let el of action.arr) {
           if (el.id === item.id) {
             return {...item, score: el.score, point: el.point,
-              jack: el.isJack, cross: el.cross, wheel: el.wheel
+              jack: el.isJack, cross: el.cross, wheel: el.wheel,
+              isWin: el.isWin
             }
           }
         }
@@ -68,7 +76,33 @@ const gameReducer = (state, action) => {
         return item;
       });
 
-      return {...state, party: [...state.party, {id: (+new Date()).toString(16), data, players: scorePlayers}]};
+      return {...state, party: [...state.party,
+        {
+          id: (+new Date()).toString(16),
+          data, players: scorePlayers, isSomeWin: false
+        }
+      ]};
+      case SET_PARTY_WIN:
+        const dataWin = new Date();
+        const scorePlayersWin = state.players.map(item => {
+          for (let el of action.arr) {
+            if (el.id === item.id) {
+              return {...item, score: el.score, point: el.point,
+                jack: el.isJack, cross: el.cross, wheel: el.wheel,
+                isWin: el.isWin
+              }
+            }
+          }
+
+          return item;
+        });
+
+        return {...state, party: [...state.party,
+          {
+            id: (+new Date()).toString(16),
+            data: dataWin, players: scorePlayersWin, isSomeWin: true
+          }
+        ]};
     case SET_PLAYER_POINT:
       const newPoint = state.players.map((item, i) => {
         return {...item, point: action.arr.find(el => el.id === item.id).point};
