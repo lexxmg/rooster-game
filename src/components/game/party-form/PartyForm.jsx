@@ -9,8 +9,8 @@ const PartyForm = (props) => {
   } = props;
 
   const initialParty = players.map(item => {
-    return {
-        id:item.id, name: item.name, score: 0, point: item.point,
+    return {...item,
+        id: item.id, name: item.name, score: 0, point: item.point,
         isTouched: false, isJack: false, cross: false,
         wheel: false, isWin: false
       }
