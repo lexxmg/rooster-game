@@ -34,6 +34,8 @@ const Game = (props) => {
                 <span>{item.point} </span>
                 <span className="game-player__name">{item.name}</span>
                 <span className="game-player__cash">{item.cash} руб.</span>
+                <span className=""> (+_{item.crossCount}) </span>
+                <span className=""> (o_{item.wheelCount}) </span>
               </div>
             )
           })
