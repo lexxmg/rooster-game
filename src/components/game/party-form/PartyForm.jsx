@@ -5,7 +5,7 @@ import React from 'react';
 const PartyForm = (props) => {
   const { setShow, setPartyGame, players,
     setPlayerPoint, setPartyWin, setPlayerWheelIncrement,
-    setPlayerCrossIncrement
+    setPlayerCrossIncrement, resetPlayer
   } = props;
 
   const initialParty = players.map(item => {
@@ -29,9 +29,10 @@ const PartyForm = (props) => {
       console.log(win.name, 'выиграл');
       console.log(party);
       setPartyWin(party);
+      resetPlayer();
       setShow(false);
     }
-  }, [party, setPartyWin, setShow]);
+  }, [party, setPartyWin, setShow, resetPlayer]);
 
   const isTouched = (arr, id) => {
     return arr.find(item => {

@@ -1,5 +1,6 @@
 
 const SET_NEW_PLAYER = 'SET_NEW_PLAYER',
+      RESET_PLAYER = 'RESET_PLAYER',
       SET_PARTY_GAME = 'SET_PARTY_GAME',
       DELETE_PLAYER = 'DELETE_PLAYER',
       RESET_GAME = 'RESET_GAME',
@@ -21,6 +22,12 @@ export const setNewPlayer = (name, cash) => {
       name,
       cash
     }
+  }
+}
+
+export const resetPlayer = () => {
+  return {
+    type: RESET_PLAYER
   }
 }
 
@@ -76,6 +83,10 @@ const gameReducer = (state, action) => {
           {...action.player, id, point, wheelCount: 0, crossCount: 0}
         ]
       };
+    case RESET_PLAYER:
+      return {...state, players: state.players.map(item => {
+        return {...item, point: 15, wheelCount: 0, crossCount: 0}
+      })};
     case DELETE_PLAYER:
       return {...state, players: state.players.filter(item => {
           return item.id !== action.id;

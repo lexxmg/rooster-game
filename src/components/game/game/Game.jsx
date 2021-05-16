@@ -6,7 +6,7 @@ import PartyForm from '../party-form/PartyForm';
 const Game = (props) => {
   const { players, party, setPlayerPoint,
     setPartyWin, setPlayerWheelIncrement,
-    setPlayerCrossIncrement
+    setPlayerCrossIncrement, resetPlayer
   } = props;
 
   const [ showForm, setShowForm ] = React.useState(false);
@@ -23,6 +23,7 @@ const Game = (props) => {
           setPartyWin={setPartyWin}
           setPlayerWheelIncrement={setPlayerWheelIncrement}
           setPlayerCrossIncrement={setPlayerCrossIncrement}
+          resetPlayer={resetPlayer}
         />
       }
 

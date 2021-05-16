@@ -8,7 +8,8 @@ import FormPlayerContainer from '../../form-player/FormPlayerComtainer';
 const GameWrapper = (props) => {
   const { setPartyGame, party, players,
     resetGame, setPlayerPoint, setPartyWin,
-    setPlayerWheelIncrement, setPlayerCrossIncrement
+    setPlayerWheelIncrement, setPlayerCrossIncrement,
+    resetPlayer
   } = props;
 
   const [ isNewGame, setIsNewGame ] = React.useState(false);
@@ -47,6 +48,7 @@ const GameWrapper = (props) => {
               setPartyWin={setPartyWin}
               setPlayerWheelIncrement={setPlayerWheelIncrement}
               setPlayerCrossIncrement={setPlayerCrossIncrement}
+              resetPlayer={resetPlayer}
             />
       }
     </div>
