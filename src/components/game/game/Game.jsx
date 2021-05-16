@@ -4,7 +4,10 @@ import React from 'react';
 import PartyForm from '../party-form/PartyForm';
 
 const Game = (props) => {
-  const { players, party, setPlayerPoint, setPartyWin } = props;
+  const { players, party, setPlayerPoint,
+    setPartyWin, setPlayerWheelIncrement,
+    setPlayerCrossIncrement
+  } = props;
 
   const [ showForm, setShowForm ] = React.useState(false);
 
@@ -18,6 +21,8 @@ const Game = (props) => {
           setPartyGame={props.setPartyGame}
           players={props.players}
           setPartyWin={setPartyWin}
+          setPlayerWheelIncrement={setPlayerWheelIncrement}
+          setPlayerCrossIncrement={setPlayerCrossIncrement}
         />
       }
 
@@ -67,7 +72,11 @@ const Game = (props) => {
                   {
                     item.players.map(item => {
                       return (
-                        <div className="part-game__item" key={item.id}>{item.score}</div>
+                        <div className="part-game__item" key={item.id}>
+                          {item.score}
+                          {item.cross && <span> +</span>}
+                          {item.wheel && <span> o</span>}
+                        </div>
                       )
                     })
                   }

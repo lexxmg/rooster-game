@@ -4,7 +4,9 @@ const SET_NEW_PLAYER = 'SET_NEW_PLAYER',
       DELETE_PLAYER = 'DELETE_PLAYER',
       RESET_GAME = 'RESET_GAME',
       SET_PLAYER_POINT = 'SET_PLAYER_POINT',
-      SET_PARTY_WIN = 'SET_PARTY_WIN';
+      SET_PARTY_WIN = 'SET_PARTY_WIN',
+      SET_PLAYER_WHEEL_INCREMENT = 'SET_PLAYER_WHEEL_INCREMENT',
+      SET_PLAYER_CROSS_INCREMENT = 'SET_PLAYER_CROSS_INCREMENT';
 
 //const playerExample = {id: 1, name: 'lexx', cash: 0};
 
@@ -49,13 +51,31 @@ export const setPlayerPoint = (arr) => {
   }
 }
 
+export const setPlayerWheelIncrement = (id) => {
+  return {
+    type: SET_PLAYER_WHEEL_INCREMENT,
+    id
+  }
+}
+
+export const setPlayerCrossIncrement = (id) => {
+  return {
+    type: SET_PLAYER_CROSS_INCREMENT,
+    id
+  }
+}
+
 const gameReducer = (state, action) => {
   switch (action.type) {
     case SET_NEW_PLAYER:
       const id = (+new Date()).toString(16);
       const point = 15;
 
-      return {...state, players: [...state.players, {...action.player, id, point}]};
+      return {...state,
+        players: [...state.players,
+          {...action.player, id, point, wheelCount: 0, crossCount: 0}
+        ]
+      };
     case DELETE_PLAYER:
       return {...state, players: state.players.filter(item => {
           return item.id !== action.id;
@@ -110,6 +130,22 @@ const gameReducer = (state, action) => {
       //console.log(newPoint);
 
       return {...state, players: newPoint};
+    case SET_PLAYER_WHEEL_INCREMENT:
+      return {...state, players: state.players.map(item => {
+        if (item.id === action.id) {
+          return {...item, wheelCount: item.wheelCount + 1};
+        } else {
+          return item;
+        }
+      })};
+    case SET_PLAYER_CROSS_INCREMENT:
+      return {...state, players: state.players.map(item => {
+        if (item.id === action.id) {
+          return {...item, crossCount: item.crossCount + 1};
+        } else {
+          return item;
+        }
+      })};
     case RESET_GAME:
       return {...state, players: [], party: []};
     default: return state;

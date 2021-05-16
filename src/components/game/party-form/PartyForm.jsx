@@ -3,7 +3,10 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, setPartyGame, players, setPlayerPoint, setPartyWin } = props;
+  const { setShow, setPartyGame, players,
+    setPlayerPoint, setPartyWin, setPlayerWheelIncrement,
+    setPlayerCrossIncrement
+  } = props;
 
   const initialParty = players.map(item => {
     return {
@@ -115,6 +118,14 @@ const PartyForm = (props) => {
                       : scoreCount.map((el, j) => {
                         return (
                           <button className="" key={j} onClick={() => {
+                            if ( (el === 0) && !getJack(party, item.id) ) {
+                              setPlayerWheelIncrement(item.id);
+                            }
+
+                            if ( getJack(party, item.id) && el === 0 ) {
+                              setPlayerCrossIncrement(item.id);
+                            }
+
                             setParty( party.map(obj => {
                                 if (obj.id === item.id) {
                                   const point = pointCalc(el, party[i].point, getJack(party, item.id));
