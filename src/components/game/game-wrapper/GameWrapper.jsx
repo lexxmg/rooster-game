@@ -9,7 +9,7 @@ const GameWrapper = (props) => {
   const { setPartyGame, party, players,
     resetGame, setPlayerPoint, setPartyWin,
     setPlayerWheelIncrement, setPlayerCrossIncrement,
-    resetPlayer
+    resetPlayer, setCachPlayer
   } = props;
 
   const [ isNewGame, setIsNewGame ] = React.useState(false);
@@ -49,6 +49,7 @@ const GameWrapper = (props) => {
               setPlayerWheelIncrement={setPlayerWheelIncrement}
               setPlayerCrossIncrement={setPlayerCrossIncrement}
               resetPlayer={resetPlayer}
+              setCachPlayer={setCachPlayer}
             />
       }
     </div>

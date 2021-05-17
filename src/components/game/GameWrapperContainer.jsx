@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { setNewPlayer, setPartyGame,
   resetGame, setPlayerPoint, setPartyWin,
   setPlayerWheelIncrement, setPlayerCrossIncrement,
-  resetPlayer
+  resetPlayer, setCachPlayer
 } from '../../redux/game-reducer';
 
 //const playerExample = {name: 'lexx', cash: 0};
@@ -31,5 +31,5 @@ export default connect(mapStateToProps, {
     setNewPlayer, setPartyGame,
     resetGame, setPlayerPoint, setPartyWin,
     setPlayerWheelIncrement, setPlayerCrossIncrement,
-    resetPlayer
+    resetPlayer, setCachPlayer
   })(GameWrapperContainer);

@@ -1,5 +1,6 @@
 
 const SET_NEW_PLAYER = 'SET_NEW_PLAYER',
+      SET_CACH_PLAYER = 'SET_CACH_PLAYER',
       RESET_PLAYER = 'RESET_PLAYER',
       SET_PARTY_GAME = 'SET_PARTY_GAME',
       DELETE_PLAYER = 'DELETE_PLAYER',
@@ -22,6 +23,14 @@ export const setNewPlayer = (name, cash) => {
       name,
       cash
     }
+  }
+}
+
+export const setCachPlayer = (id, cash) => {
+  return {
+    type: SET_CACH_PLAYER,
+    id,
+    cash
   }
 }
 
@@ -82,6 +91,15 @@ const gameReducer = (state, action) => {
         players: [...state.players,
           {...action.player, id, point, wheelCount: 0, crossCount: 0}
         ]
+      };
+    case SET_CACH_PLAYER:
+      return { ...state, players: state.players.map(item => {
+          if (item.id === action.id) {
+            return { ...item, cash: action.cash };
+          } else {
+            return item;
+          }
+        })
       };
     case RESET_PLAYER:
       return {...state, players: state.players.map(item => {

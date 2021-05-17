@@ -5,7 +5,7 @@ import React from 'react';
 const PartyForm = (props) => {
   const { setShow, setPartyGame, players,
     setPlayerPoint, setPartyWin, setPlayerWheelIncrement,
-    setPlayerCrossIncrement, resetPlayer
+    setPlayerCrossIncrement, resetPlayer, setCachPlayer
   } = props;
 
   const initialParty = players.map(item => {
@@ -24,15 +24,24 @@ const PartyForm = (props) => {
   React.useEffect(() => {
     //console.log(party);
     const win = party.find((item) => item.point <= 0);
+    //let gain =
 
     if ( win ) {
       console.log(win.name, 'выиграл');
       console.log(party);
+      players.forEach(item => {
+        if (win.id !== item.id) {
+
+          //setCachPlayer(win.id, +item.cash + 10);
+          setCachPlayer(item.id, +item.cash - 10);
+        }
+      });
+      setCachPlayer(win.id, +win.cash + 10);
       setPartyWin(party);
       resetPlayer();
       setShow(false);
     }
-  }, [party, setPartyWin, setShow, resetPlayer]);
+  }, [players, party, setPartyWin, setShow, resetPlayer, setCachPlayer]);
 
   const isTouched = (arr, id) => {
     return arr.find(item => {
