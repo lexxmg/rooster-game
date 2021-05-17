@@ -16,6 +16,7 @@ const PartyForm = (props) => {
       }
   });
   const [ party, setParty ] = React.useState(initialParty);
+  //const [ gain, setGain ] = React.useState(0);
   //const [ move, setMove ] = React.useState(false);
 
   // console.log(party.length !== 0);
@@ -31,9 +32,10 @@ const PartyForm = (props) => {
       console.log(party);
       players.forEach(item => {
         if (win.id !== item.id) {
-
+          const losing = (+item.cash - 10) - (item.wheelCount * 5) - (item.crossCount * 10);
+          //setGain(gain + losing);
           //setCachPlayer(win.id, +item.cash + 10);
-          setCachPlayer(item.id, +item.cash - 10);
+          setCachPlayer(item.id, losing);
         }
       });
       setCachPlayer(win.id, +win.cash + 10);
