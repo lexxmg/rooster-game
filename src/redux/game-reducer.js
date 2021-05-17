@@ -117,7 +117,7 @@ const gameReducer = (state, action) => {
           if (el.id === item.id) {
             return {...item, score: el.score, point: el.point,
               jack: el.isJack, cross: el.cross, wheel: el.wheel,
-              isWin: el.isWin
+              isWin: el.isWin, gain: el, losing: el
             }
           }
         }

@@ -12,11 +12,11 @@ const PartyForm = (props) => {
     return {...item,
         id: item.id, name: item.name, score: 0, point: item.point,
         isTouched: false, isJack: false, cross: false,
-        wheel: false, isWin: false
+        wheel: false, isWin: false, win: 0, gain: 0, losing: 0
       }
   });
   const [ party, setParty ] = React.useState(initialParty);
-  //const [ gain, setGain ] = React.useState(0);
+  const gain = React.useRef(0);
   //const [ move, setMove ] = React.useState(false);
 
   // console.log(party.length !== 0);
@@ -33,12 +33,12 @@ const PartyForm = (props) => {
       players.forEach(item => {
         if (win.id !== item.id) {
           const losing = (+item.cash - 10) - (item.wheelCount * 5) - (item.crossCount * 10);
-          //setGain(gain + losing);
-          //setCachPlayer(win.id, +item.cash + 10);
+          gain.current =  gain.current + (10 + (item.wheelCount * 5) + (item.crossCount * 10));
+
           setCachPlayer(item.id, losing);
         }
       });
-      setCachPlayer(win.id, +win.cash + 10);
+      setCachPlayer(win.id, +win.cash + gain.current);
       setPartyWin(party);
       resetPlayer();
       setShow(false);
