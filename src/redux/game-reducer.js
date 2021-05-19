@@ -81,7 +81,14 @@ export const setPlayerCrossIncrement = (id) => {
   }
 }
 
-const gameReducer = (state, action) => {
+const initialSate = {
+  players: [],
+  party: [],
+  gameBet: {game: 10, wheel: 5, cross: 10}
+}
+
+
+const gameReducer = (state = initialSate, action) => {
   switch (action.type) {
     case SET_NEW_PLAYER:
       const id = (+new Date()).toString(16);

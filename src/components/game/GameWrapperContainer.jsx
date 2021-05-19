@@ -22,8 +22,8 @@ const GameWrapperContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    players: state.players,
-    party: state.party,
+    players: state.game.players,
+    party: state.game.party,
   }
 }
 
