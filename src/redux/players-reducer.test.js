@@ -6,7 +6,8 @@ const initialState = {
     {name: 'lexx', cash: 100, id: 1},
     {name: 'lexx', cash: 100, id: 2},
     {name: 'lexx', cash: 100, id: 3}
-  ]
+  ],
+  playerCount: 3
 }
 
 it('add new players', () => {
@@ -15,6 +16,14 @@ it('add new players', () => {
   //console.log(newState);
 
   expect(newState.players.length).toBe(4);
+});
+
+it('players count increment', () => {
+  const action = createNewPlayer('lexx', 100);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.playerCount).toBe(4);
 });
 
 it('set cash player', () => {
@@ -31,4 +40,12 @@ it('delete player', () => {
   //console.log(newState);
 
   expect(newState.players.length).toBe(2);
+});
+
+it('player count decriment', () => {
+  const action = deletePlayer(2);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.playerCount).toBe(2);
 });

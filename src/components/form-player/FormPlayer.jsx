@@ -16,8 +16,9 @@ const FormPlayer = (props) => {
     } else if (!values.cash) {
       errors.cash = 'поле счет должно быть запольнено';
     }
-  return errors;
-}
+
+    return errors;
+  }
 
   return (
     <div className="form-player">

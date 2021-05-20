@@ -27,7 +27,8 @@ export const deletePlayer = (id) => {
 }
 
 const initialSate = {
-  players: []
+  players: [],
+  playerCount: 0
 }
 
 const playersReducer = (state = initialSate, action) => {
@@ -39,7 +40,7 @@ const playersReducer = (state = initialSate, action) => {
         cash: action.cash
       };
 
-      return { ...state, players: [...state.players, player] };
+      return { ...state, players: [...state.players, player], playerCount: state.playerCount + 1 };
     case SET_CASH_PLAYER:
       const newPlaerCash = state.players.map(item => {
         if (item.id !== action.id)  return item;
@@ -52,7 +53,7 @@ const playersReducer = (state = initialSate, action) => {
         return item.id !== action.id;
       });
 
-      return { ...state,players: newPlayersArray };
+      return { ...state,players: newPlayersArray, playerCount: state.playerCount - 1 };
     default:
       return state;
   }
