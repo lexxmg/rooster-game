@@ -5,7 +5,9 @@ const CREATE_NEW_PLAYER = 'CREATE_NEW_PLAYER',
       SET_OF_BRIBES = 'SET_OF_BRIBES',
       SET_CROSS_WHEEL = 'SET_OF_BRIBES_CALC',
       SET_CROSS_WHEEL_COUNT = 'SET_CROSS_WHEEL_COUNT',
-      SET_IS_WIN = 'SET_IS_WIN';
+      SET_SCORE = 'SET_SCORE',
+      SET_IS_WIN = 'SET_IS_WIN',
+      SET_IS_JACK = 'SET_IS_JACK';
 
 export const createNewPlayer = (name, cash) => {
   return {
@@ -38,6 +40,14 @@ export const setOfBribes = (id, numberOfBribes) => {
   }
 }
 
+export const setScore = (id, score) => {
+  return {
+    type: SET_SCORE,
+    id,
+    score
+  }
+}
+
 export const setCrossWheel = (id, cross, wheel) => {
   return {
     type: SET_CROSS_WHEEL,
@@ -64,13 +74,34 @@ export const setIsWin = (id, isWin) => {
   }
 }
 
-export const setOfBribesCalc = (id, numberOfBribes, isJack) => {
-  if (isJack) {
-    numberOfBribes = numberOfBribes + 5;
+export const setIsJack = (id, isJack) => {
+  return {
+    type: SET_IS_JACK,
+    id,
+    isJack
   }
+}
 
-  return dispatch => {
-    dispatch( setOfBribes(id, numberOfBribes) );
+export const setOfBribesCalc = (id, numberOfBribes, isJack) => {
+  return (dispatch, getState) => {
+    const score = getState().players.find(item => item.id === id).score;
+    //console.log(score);
+
+    dispatch( setIsJack(id, isJack) );
+
+    if (isJack && numberOfBribes > 0) {
+      const bribes = numberOfBribes + 5;
+
+      dispatch( setOfBribes(id, bribes) );
+      dispatch( setScore(id, score - bribes) );
+    } else {
+      dispatch( setOfBribes(id, numberOfBribes) );
+      dispatch( setCrossWheelCount(id, true, false) );
+    }
+
+    if (!isJack) {
+
+    }
   }
 }
 
@@ -129,10 +160,22 @@ const playersReducer = (state = initialSate, action) => {
           return { ...item, crossCount: action.crossCount, wheelCount: action.wheelCount };
         })
       };
+    case SET_SCORE:
+      return { ...state, players: state.players.map(item => {
+          if ( item.id !== action.id ) return item;
+          return { ...item, score: action.score };
+        })
+      };
     case SET_IS_WIN:
       return { ...state, players: state.players.map(item => {
           if ( item.id !== action.id ) return item;
           return { ...item, isWin: action.isWin };
+        })
+      };
+    case SET_IS_JACK:
+      return { ...state, players: state.players.map(item => {
+          if ( item.id !== action.id ) return item;
+          return { ...item, isJack: action.isJack };
         })
       };
     default:

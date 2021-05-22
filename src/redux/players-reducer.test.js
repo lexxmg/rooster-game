@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import playersReducer,
   { createNewPlayer, setCashPlayer, deletePlayer,
     setOfBribes, setCrossWheel, setCrossWheelCount,
-    setIsWin, setOfBribesCalc
+    setIsWin, setOfBribesCalc, setIsJack, setScore
   } from './players-reducer';
 
 const middlewares = [thunk] // add your middlewares like `redux-thunk`
@@ -103,6 +103,14 @@ it('set of bribes', () => {
   expect(newState.players[1].numberOfBribes).toBe(3);
 });
 
+it('set score', () => {
+  const action = setScore(2, 10);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.players[1].score).toBe(10);
+});
+
 it('set of cross wheel', () => {
   const action = setCrossWheel(2, false, true);
   const newState = playersReducer(initialState, action);
@@ -130,15 +138,25 @@ it('set is win', () => {
   expect(newState.players[1].isWin).toBe(true);
 });
 
+it('set is jack', () => {
+  const action = setIsJack(2, true);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.players[1].isJack).toBe(true);
+});
+
 it('set is bribes to jack true thunk', () => {
   const store = mockStore(initialState);
 
   store.dispatch( setOfBribesCalc(2, 3, true) );
 
   //console.log(store.getState());
-  //console.log(store.getActions()[0].numberOfBribes);
+  console.log(store.getActions());
 
-  expect(store.getActions()[0].numberOfBribes).toBe(8);
+  expect(store.getActions()[0].isJack).toBe(true);
+  expect(store.getActions()[1].numberOfBribes).toBe(8);
+  expect(store.getActions()[2].score).toBe(7); //15 - 8
 });
 
 it('set is bribes to jack false thunk', () => {
@@ -147,7 +165,21 @@ it('set is bribes to jack false thunk', () => {
   store.dispatch( setOfBribesCalc(2, 3, false) );
 
   //console.log(store.getState());
-  //console.log(store.getActions()[0].numberOfBribes);
+  //console.log(store.getActions());
+  expect(store.getActions()[0].isJack).toBe(false);
+  expect(store.getActions()[1].numberOfBribes).toBe(3);
+});
 
-  expect(store.getActions()[0].numberOfBribes).toBe(3);
+it('set is bribes to jack true and 0 bribes thunk', () => {
+  const store = mockStore(initialState);
+
+  store.dispatch( setOfBribesCalc(2, 0, true) );
+
+  //console.log(store.getState());
+  //console.log(store.getActions());
+
+  expect(store.getActions()[0].isJack).toBe(true);
+  expect(store.getActions()[1].numberOfBribes).toBe(0);
+  expect(store.getActions()[2].crossCount).toBe(true);
+  expect(store.getActions()[2].wheelCount).toBe(false);
 });
