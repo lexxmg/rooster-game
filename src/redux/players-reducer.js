@@ -4,7 +4,8 @@ const CREATE_NEW_PLAYER = 'CREATE_NEW_PLAYER',
       DELETE_PLAYER = 'DELETE_PLAYER',
       SET_OF_BRIBES = 'SET_OF_BRIBES',
       SET_CROSS_WHEEL = 'SET_OF_BRIBES_CALC',
-      SET_CROSS_WHEEL_COUNT = 'SET_CROSS_WHEEL_COUNT',
+      SET_CROSS_COUNT = 'SET_CROSS_COUNT',
+      SET_WHEEL_COUNT = 'SET_WHEEL_COUNT',
       SET_SCORE = 'SET_SCORE',
       SET_IS_WIN = 'SET_IS_WIN',
       SET_IS_JACK = 'SET_IS_JACK';
@@ -57,12 +58,19 @@ export const setCrossWheel = (id, cross, wheel) => {
   }
 }
 
-export const setCrossWheelCount = (id, crossCount, wheelCount) => {
+export const setWheelCount = (id, wheelCount) => {
   return {
-    type: SET_CROSS_WHEEL_COUNT,
+    type: SET_WHEEL_COUNT,
     id,
-    crossCount,
     wheelCount
+  }
+}
+
+export const setCrossCount = (id, crossCount) => {
+  return {
+    type: SET_CROSS_COUNT,
+    id,
+    crossCount
   }
 }
 
@@ -89,14 +97,17 @@ export const setOfBribesCalc = (id, numberOfBribes, isJack) => {
 
     dispatch( setIsJack(id, isJack) );
 
-    if (isJack && numberOfBribes > 0) {
+    if (isJack && numberOfBribes !== 0) {
       const bribes = numberOfBribes + 5;
 
       dispatch( setOfBribes(id, bribes) );
       dispatch( setScore(id, score - bribes) );
     } else {
+      const crossCount = getState().players.find(item => item.id === id).crossCount;
+
       dispatch( setOfBribes(id, numberOfBribes) );
-      dispatch( setCrossWheelCount(id, true, false) );
+      dispatch( setCrossWheel(id, true, false) );
+      dispatch( setCrossCount(id, crossCount + 1) );
     }
 
     if (!isJack) {
@@ -154,10 +165,16 @@ const playersReducer = (state = initialSate, action) => {
           return { ...item, cross: action.cross, wheel: action.wheel };
         })
       };
-    case SET_CROSS_WHEEL_COUNT:
+    case SET_CROSS_COUNT:
       return { ...state, players: state.players.map(item => {
           if ( item.id !== action.id ) return item;
-          return { ...item, crossCount: action.crossCount, wheelCount: action.wheelCount };
+          return { ...item, crossCount: action.crossCount };
+        })
+      };
+    case SET_WHEEL_COUNT:
+      return { ...state, players: state.players.map(item => {
+          if ( item.id !== action.id ) return item;
+          return { ...item, wheelCount: action.wheelCount };
         })
       };
     case SET_SCORE:

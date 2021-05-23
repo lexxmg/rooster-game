@@ -3,7 +3,8 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import playersReducer,
   { createNewPlayer, setCashPlayer, deletePlayer,
-    setOfBribes, setCrossWheel, setCrossWheelCount,
+    setOfBribes, setCrossWheel, setCrossCount,
+    setWheelCount,
     setIsWin, setOfBribesCalc, setIsJack, setScore
   } from './players-reducer';
 
@@ -34,7 +35,7 @@ const initialState = {
       isJack: false,
       cross: false,
       wheel: false,
-      crossCount: 0,
+      crossCount: 2,
       wheelCount: 0,
       isWin: false
     },
@@ -120,9 +121,19 @@ it('set of cross wheel', () => {
   expect(newState.players[1].wheel).toBe(true);
 });
 
-it('set of cross wheel count', () => {
+it('set of cross count', () => {
   const id = 3
-  const action = setCrossWheelCount(id, 0, 1);
+  const action = setCrossCount(id, 1);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.players[id - 1].crossCount).toBe(1);
+  expect(newState.players[id - 1].wheelCount).toBe(0);
+});
+
+it('set of wheel count', () => {
+  const id = 3
+  const action = setWheelCount(id, 1);
   const newState = playersReducer(initialState, action);
   //console.log(newState);
 
@@ -152,7 +163,7 @@ it('set is bribes to jack true thunk', () => {
   store.dispatch( setOfBribesCalc(2, 3, true) );
 
   //console.log(store.getState());
-  console.log(store.getActions());
+  //console.log(store.getActions());
 
   expect(store.getActions()[0].isJack).toBe(true);
   expect(store.getActions()[1].numberOfBribes).toBe(8);
@@ -175,11 +186,11 @@ it('set is bribes to jack true and 0 bribes thunk', () => {
 
   store.dispatch( setOfBribesCalc(2, 0, true) );
 
-  //console.log(store.getState());
-  //console.log(store.getActions());
+  console.log(store.getState());
+  console.log(store.getActions());
 
   expect(store.getActions()[0].isJack).toBe(true);
   expect(store.getActions()[1].numberOfBribes).toBe(0);
-  expect(store.getActions()[2].crossCount).toBe(true);
-  expect(store.getActions()[2].wheelCount).toBe(false);
+  expect(store.getActions()[2].cross).toBe(true);
+  expect(store.getActions()[2].wheel).toBe(false);
 });
