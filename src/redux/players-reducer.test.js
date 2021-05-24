@@ -3,7 +3,7 @@
 // import thunk from 'redux-thunk';
 import playersReducer,
   { createNewPlayer, setCashPlayer, deletePlayer,
-    setOfBribes, resetPlayers
+    setOfBribes, resetPlayers, setGainAndLosing
   } from './players-reducer';
 
 // const middlewares = [thunk] // add your middlewares like `redux-thunk`
@@ -14,6 +14,8 @@ const initialState = {
     { id: 1,
       name: 'lexx',
       cash: 100,
+      gain: 0,
+      losing: 0,
       isTouched: false,
       score: 5,
       numberOfBribes: 0,
@@ -27,6 +29,8 @@ const initialState = {
     { id: 2,
       name: 'lexx',
       cash: 100,
+      gain: 0,
+      losing: 0,
       isTouched: false,
       score: 15,
       numberOfBribes: 0,
@@ -40,6 +44,8 @@ const initialState = {
     { id: 3,
       name: 'lexx',
       cash: 100,
+      gain: 0,
+      losing: 0,
       isTouched: false,
       score: 10,
       numberOfBribes: 0,
@@ -93,6 +99,26 @@ it('player count decriment', () => {
   //console.log(newState);
 
   expect(newState.playerCount).toBe(2);
+});
+
+it('set gain and losing', () => {
+  const action = setGainAndLosing(2, 50, 0);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.players[1].numberOfBribes).toBe(0);
+  expect(newState.players[1].isTouched).toBe(false);
+  expect(newState.players[1].cash).toBe(100);
+  expect(newState.players[1].score).toBe(15);
+  expect(newState.players[1].gain).toBe(50);
+  expect(newState.players[1].losing).toBe(0);
+  expect(newState.players[1].isJack).toBe(false);
+  expect(newState.players[1].cross).toBe(false);
+  expect(newState.players[1].wheel).toBe(false);
+  expect(newState.players[1].crossCount).toBe(0);
+  expect(newState.players[1].wheelCount).toBe(0);
+  expect(newState.players[1].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 3 is jack', () => {

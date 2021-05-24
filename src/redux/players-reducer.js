@@ -1,6 +1,7 @@
 
 const CREATE_NEW_PLAYER = 'CREATE_NEW_PLAYER',
       SET_CASH_PLAYER = 'SET_CASH_PLAYER',
+      SET_GAIN_AND_LOSING = 'SET_GAIN_AND_LOSING',
       DELETE_PLAYER = 'DELETE_PLAYER',
       SET_OF_BRIBES = 'SET_OF_BRIBES',
       RESET_PLEYERS = 'RESET_PLEYERS';
@@ -37,6 +38,15 @@ export const setOfBribes = (id, numberOfBribes, isJack) => {
   }
 }
 
+export const setGainAndLosing = (id, gain, losing) => {
+  return {
+    type: SET_GAIN_AND_LOSING,
+    id,
+    gain,
+    losing
+  }
+}
+
 export const resetPlayers = () => {
   return {
     type: RESET_PLEYERS
@@ -59,6 +69,8 @@ const playersReducer = (state = initialSate, action) => {
         id: (+new Date()).toString(16),
         name: action.name,
         cash: action.cash,
+        gain: 0,
+        losing: 0,
         isTouched: false,
         score: 15,
         numberOfBribes: 0,
@@ -134,10 +146,18 @@ const playersReducer = (state = initialSate, action) => {
             };
           } return item;
         }), someWin: someWin };
+    case SET_GAIN_AND_LOSING:
+      return { ...state, players: state.players.map(item => {
+          if (item.id !== action.id) return item;
+          return { ...item, gain: action.gain, losing: action.losing };
+        })
+      };
     case RESET_PLEYERS:
       return { ...state, players: state.players.map(item => {
           return { ...item,
             isTouched: false,
+            gain: 0,
+            losing: 0,
             score: 15,
             numberOfBribes: 0,
             isJack: false,
