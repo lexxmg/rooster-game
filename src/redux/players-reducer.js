@@ -33,11 +33,12 @@ export const deletePlayer = (id) => {
   }
 }
 
-export const setOfBribes = (id, numberOfBribes) => {
+export const setOfBribes = (id, numberOfBribes, isJack) => {
   return {
     type: SET_OF_BRIBES,
     id,
-    numberOfBribes
+    numberOfBribes,
+    isJack
   }
 }
 
@@ -90,31 +91,31 @@ export const setIsJack = (id, isJack) => {
   }
 }
 
-export const setOfBribesCalc = (id, numberOfBribes, isJack) => {
-  return (dispatch, getState) => {
-    const score = getState().players.find(item => item.id === id).score;
-    //console.log(score);
-
-    dispatch( setIsJack(id, isJack) );
-
-    if (isJack && numberOfBribes !== 0) {
-      const bribes = numberOfBribes + 5;
-
-      dispatch( setOfBribes(id, bribes) );
-      dispatch( setScore(id, score - bribes) );
-    } else {
-      const crossCount = getState().players.find(item => item.id === id).crossCount;
-
-      dispatch( setOfBribes(id, numberOfBribes) );
-      dispatch( setCrossWheel(id, true, false) );
-      dispatch( setCrossCount(id, crossCount + 1) );
-    }
-
-    if (!isJack) {
-
-    }
-  }
-}
+// export const setOfBribesCalc = (id, numberOfBribes, isJack) => {
+//   return (dispatch, getState) => {
+//     const score = getState().players.find(item => item.id === id).score;
+//     //console.log(score);
+//
+//     dispatch( setIsJack(id, isJack) );
+//
+//     if (isJack && numberOfBribes !== 0) {
+//       const bribes = numberOfBribes + 5;
+//
+//       dispatch( setOfBribes(id, bribes) );
+//       dispatch( setScore(id, score - bribes) );
+//     } else {
+//       const crossCount = getState().players.find(item => item.id === id).crossCount;
+//
+//       dispatch( setOfBribes(id, numberOfBribes) );
+//       dispatch( setCrossWheel(id, true, false) );
+//       dispatch( setCrossCount(id, crossCount + 1) );
+//     }
+//
+//     if (!isJack) {
+//
+//     }
+//   }
+// }
 
 const initialSate = {
   players: [],
@@ -156,7 +157,43 @@ const playersReducer = (state = initialSate, action) => {
     case SET_OF_BRIBES:
       return { ...state, players: state.players.map(item => {
           if ( item.id !== action.id ) return item;
-          return { ...item, numberOfBribes: action.numberOfBribes };
+          if ( action.isJack && action.numberOfBribes !== 0 ) {
+            return { ...item,
+              numberOfBribes: action.numberOfBribes,
+              isJack: action.isJack,
+              score: item.score - (action.numberOfBribes + 5),
+              isWin: ( item.score - (action.numberOfBribes + 5) <= 0 )
+            };
+          } else if ( action.isJack && action.numberOfBribes === 0 ) {
+            return { ...item,
+              numberOfBribes: action.numberOfBribes,
+              isJack: action.isJack,
+              cross: true,
+              crossCount: (item.crossCount + 1)
+            };
+          } else if ( !action.isJack && action.numberOfBribes !== 0 ) {
+            return { ...item,
+              numberOfBribes: action.numberOfBribes,
+              isJack: action.isJack,
+              score: item.score - action.numberOfBribes,
+              isWin: ( item.score - action.numberOfBribes <= 0 )
+            };
+          } else if ( !action.isJack && action.numberOfBribes === 0 && item.score > 10 ) {
+            return { ...item,
+              numberOfBribes: action.numberOfBribes,
+              isJack: action.isJack,
+              wheel: true,
+              wheelCount: (item.wheelCount + 1)
+            };
+          } else if ( !action.isJack && action.numberOfBribes === 0 && item.score <= 10 ) {
+            return { ...item,
+              numberOfBribes: action.numberOfBribes,
+              isJack: action.isJack,
+              score: (item.score + 5),
+              wheel: true,
+              wheelCount: (item.wheelCount + 1)
+            };
+          } return item;
         })
       };
     case SET_CROSS_WHEEL:
