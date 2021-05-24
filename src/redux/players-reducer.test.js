@@ -1,15 +1,13 @@
 
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+// import configureStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
 import playersReducer,
   { createNewPlayer, setCashPlayer, deletePlayer,
-    setOfBribes, setCrossWheel, setCrossCount,
-    setWheelCount,
-    setIsWin, setOfBribesCalc, setIsJack, setScore
+    setOfBribes, resetPlayers
   } from './players-reducer';
 
-const middlewares = [thunk] // add your middlewares like `redux-thunk`
-const mockStore = configureStore(middlewares)
+// const middlewares = [thunk] // add your middlewares like `redux-thunk`
+// const mockStore = configureStore(middlewares)
 
 const initialState = {
   players: [
@@ -53,7 +51,8 @@ const initialState = {
       isWin: false
     }
   ],
-  playerCount: 3
+  playerCount: 3,
+  someWin: false
 }
 
 it('add new players', () => {
@@ -102,6 +101,7 @@ it('set of bribes 3 is jack', () => {
   //console.log(newState);
 
   expect(newState.players[1].numberOfBribes).toBe(3);
+  expect(newState.players[1].isTouched).toBe(true);
   expect(newState.players[1].score).toBe(7);
   expect(newState.players[1].isJack).toBe(true);
   expect(newState.players[1].cross).toBe(false);
@@ -109,6 +109,7 @@ it('set of bribes 3 is jack', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 0 is jack score = 15', () => {
@@ -117,6 +118,7 @@ it('set of bribes 0 is jack score = 15', () => {
   //console.log(newState);
 
   expect(newState.players[1].numberOfBribes).toBe(0);
+  expect(newState.players[1].isTouched).toBe(true);
   expect(newState.players[1].score).toBe(15);
   expect(newState.players[1].isJack).toBe(true);
   expect(newState.players[1].cross).toBe(true);
@@ -124,6 +126,7 @@ it('set of bribes 0 is jack score = 15', () => {
   expect(newState.players[1].crossCount).toBe(1);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 0 is jack score = 10', () => {
@@ -132,6 +135,7 @@ it('set of bribes 0 is jack score = 10', () => {
   //console.log(newState);
 
   expect(newState.players[2].numberOfBribes).toBe(0);
+  expect(newState.players[2].isTouched).toBe(true);
   expect(newState.players[2].score).toBe(10);
   expect(newState.players[2].isJack).toBe(true);
   expect(newState.players[2].cross).toBe(true);
@@ -139,6 +143,7 @@ it('set of bribes 0 is jack score = 10', () => {
   expect(newState.players[2].crossCount).toBe(1);
   expect(newState.players[2].wheelCount).toBe(0);
   expect(newState.players[2].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 5 is jack score = 10', () => {
@@ -147,6 +152,7 @@ it('set of bribes 5 is jack score = 10', () => {
   //console.log(newState);
 
   expect(newState.players[2].numberOfBribes).toBe(5);
+  expect(newState.players[2].isTouched).toBe(true);
   expect(newState.players[2].score).toBe(0);
   expect(newState.players[2].isJack).toBe(true);
   expect(newState.players[2].cross).toBe(false);
@@ -154,6 +160,7 @@ it('set of bribes 5 is jack score = 10', () => {
   expect(newState.players[2].crossCount).toBe(0);
   expect(newState.players[2].wheelCount).toBe(0);
   expect(newState.players[2].isWin).toBe(true);
+  expect(newState.someWin).toBe(true);
 });
 
 it('set of bribes 3', () => {
@@ -162,6 +169,7 @@ it('set of bribes 3', () => {
   //console.log(newState);
 
   expect(newState.players[1].numberOfBribes).toBe(3);
+  expect(newState.players[1].isTouched).toBe(true);
   expect(newState.players[1].score).toBe(12);
   expect(newState.players[1].isJack).toBe(false);
   expect(newState.players[1].cross).toBe(false);
@@ -169,6 +177,7 @@ it('set of bribes 3', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 5 score = 5', () => {
@@ -177,6 +186,7 @@ it('set of bribes 5 score = 5', () => {
   //console.log(newState);
 
   expect(newState.players[0].numberOfBribes).toBe(5);
+  expect(newState.players[0].isTouched).toBe(true);
   expect(newState.players[0].score).toBe(0);
   expect(newState.players[0].isJack).toBe(false);
   expect(newState.players[0].cross).toBe(false);
@@ -184,6 +194,7 @@ it('set of bribes 5 score = 5', () => {
   expect(newState.players[0].crossCount).toBe(0);
   expect(newState.players[0].wheelCount).toBe(0);
   expect(newState.players[0].isWin).toBe(true);
+  expect(newState.someWin).toBe(true);
 });
 
 it('set of bribes 0 score = 5', () => {
@@ -192,6 +203,7 @@ it('set of bribes 0 score = 5', () => {
   //console.log(newState);
 
   expect(newState.players[0].numberOfBribes).toBe(0);
+  expect(newState.players[0].isTouched).toBe(true);
   expect(newState.players[0].score).toBe(10);
   expect(newState.players[0].isJack).toBe(false);
   expect(newState.players[0].cross).toBe(false);
@@ -199,6 +211,7 @@ it('set of bribes 0 score = 5', () => {
   expect(newState.players[0].crossCount).toBe(0);
   expect(newState.players[0].wheelCount).toBe(1);
   expect(newState.players[0].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 0 score = 15', () => {
@@ -207,6 +220,7 @@ it('set of bribes 0 score = 15', () => {
   //console.log(newState);
 
   expect(newState.players[1].numberOfBribes).toBe(0);
+  expect(newState.players[1].isTouched).toBe(true);
   expect(newState.players[1].score).toBe(15);
   expect(newState.players[1].isJack).toBe(false);
   expect(newState.players[1].cross).toBe(false);
@@ -214,6 +228,7 @@ it('set of bribes 0 score = 15', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(1);
   expect(newState.players[1].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
 it('set of bribes 2 score = 15', () => {
@@ -222,6 +237,7 @@ it('set of bribes 2 score = 15', () => {
   //console.log(newState);
 
   expect(newState.players[1].numberOfBribes).toBe(2);
+  expect(newState.players[1].isTouched).toBe(true);
   expect(newState.players[1].score).toBe(13);
   expect(newState.players[1].isJack).toBe(false);
   expect(newState.players[1].cross).toBe(false);
@@ -229,75 +245,46 @@ it('set of bribes 2 score = 15', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
-it('set of bribes 0 score = 10', () => {
+it('set of bribes 0 score = 10 should rise', () => {
   const action = setOfBribes(3, 0, false);
   const newState = playersReducer(initialState, action);
   //console.log(newState);
 
   expect(newState.players[2].numberOfBribes).toBe(0);
+  expect(newState.players[2].isTouched).toBe(true);
   expect(newState.players[2].score).toBe(15);
   expect(newState.players[2].isJack).toBe(false);
   expect(newState.players[2].cross).toBe(false);
   expect(newState.players[2].wheel).toBe(true);
   expect(newState.players[2].crossCount).toBe(0);
   expect(newState.players[2].wheelCount).toBe(1);
-  expect(newState.players[1].isWin).toBe(false);
+  expect(newState.players[2].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
-it('set score', () => {
-  const action = setScore(2, 10);
+it('resset players', () => {
+  const action = resetPlayers();
   const newState = playersReducer(initialState, action);
   //console.log(newState);
-
-  expect(newState.players[1].score).toBe(10);
+  expect(newState.players[2].id).toBe(3);
+  expect(newState.players[2].name).toBe('lexx');
+  expect(newState.players[2].cash).toBe(100);
+  expect(newState.players[2].numberOfBribes).toBe(0);
+  expect(newState.players[2].isTouched).toBe(false);
+  expect(newState.players[2].score).toBe(15);
+  expect(newState.players[2].isJack).toBe(false);
+  expect(newState.players[2].cross).toBe(false);
+  expect(newState.players[2].wheel).toBe(false);
+  expect(newState.players[2].crossCount).toBe(0);
+  expect(newState.players[2].wheelCount).toBe(0);
+  expect(newState.players[2].isWin).toBe(false);
+  expect(newState.someWin).toBe(false);
 });
 
-it('set of cross wheel', () => {
-  const action = setCrossWheel(2, false, true);
-  const newState = playersReducer(initialState, action);
-  //console.log(newState);
 
-  expect(newState.players[1].cross).toBe(false);
-  expect(newState.players[1].wheel).toBe(true);
-});
-
-it('set of cross count', () => {
-  const id = 3
-  const action = setCrossCount(id, 1);
-  const newState = playersReducer(initialState, action);
-  //console.log(newState);
-
-  expect(newState.players[id - 1].crossCount).toBe(1);
-  expect(newState.players[id - 1].wheelCount).toBe(0);
-});
-
-it('set of wheel count', () => {
-  const id = 3
-  const action = setWheelCount(id, 1);
-  const newState = playersReducer(initialState, action);
-  //console.log(newState);
-
-  expect(newState.players[id - 1].crossCount).toBe(0);
-  expect(newState.players[id - 1].wheelCount).toBe(1);
-});
-
-it('set is win', () => {
-  const action = setIsWin(2, true);
-  const newState = playersReducer(initialState, action);
-  //console.log(newState);
-
-  expect(newState.players[1].isWin).toBe(true);
-});
-
-it('set is jack', () => {
-  const action = setIsJack(2, true);
-  const newState = playersReducer(initialState, action);
-  //console.log(newState);
-
-  expect(newState.players[1].isJack).toBe(true);
-});
 
 // it('set is bribes to jack true thunk', () => {
 //   const store = mockStore(initialState);
