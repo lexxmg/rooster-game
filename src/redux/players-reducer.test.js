@@ -19,6 +19,7 @@ const initialState = {
       isTouched: false,
       score: 5,
       numberOfBribes: 0,
+      canTaceBribs: 5,
       isJack: false,
       cross: false,
       wheel: false,
@@ -34,6 +35,7 @@ const initialState = {
       isTouched: false,
       score: 15,
       numberOfBribes: 0,
+      canTaceBribs: 5,
       isJack: false,
       cross: false,
       wheel: false,
@@ -49,6 +51,7 @@ const initialState = {
       isTouched: false,
       score: 10,
       numberOfBribes: 0,
+      canTaceBribs: 5,
       isJack: false,
       cross: false,
       wheel: false,
@@ -118,6 +121,11 @@ it('set gain and losing', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(5);
+  expect(newState.players[1].canTaceBribs).toBe(5);
+  expect(newState.players[2].canTaceBribs).toBe(5);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -135,6 +143,11 @@ it('set of bribes 3 is jack', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(2);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(2);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -152,6 +165,11 @@ it('set of bribes 0 is jack score = 15', () => {
   expect(newState.players[1].crossCount).toBe(1);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(5);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(5);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -169,6 +187,11 @@ it('set of bribes 0 is jack score = 10', () => {
   expect(newState.players[2].crossCount).toBe(1);
   expect(newState.players[2].wheelCount).toBe(0);
   expect(newState.players[2].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(5);
+  expect(newState.players[1].canTaceBribs).toBe(5);
+  expect(newState.players[2].canTaceBribs).toBe(0);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -186,6 +209,11 @@ it('set of bribes 5 is jack score = 10', () => {
   expect(newState.players[2].crossCount).toBe(0);
   expect(newState.players[2].wheelCount).toBe(0);
   expect(newState.players[2].isWin).toBe(true);
+
+  expect(newState.players[0].canTaceBribs).toBe(0);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(0);
+
   expect(newState.someWin).toBe(true);
 });
 
@@ -203,6 +231,11 @@ it('set of bribes 3', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(2);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(2);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -220,6 +253,11 @@ it('set of bribes 5 score = 5', () => {
   expect(newState.players[0].crossCount).toBe(0);
   expect(newState.players[0].wheelCount).toBe(0);
   expect(newState.players[0].isWin).toBe(true);
+
+  expect(newState.players[0].canTaceBribs).toBe(0);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(0);
+
   expect(newState.someWin).toBe(true);
 });
 
@@ -237,6 +275,11 @@ it('set of bribes 0 score = 5', () => {
   expect(newState.players[0].crossCount).toBe(0);
   expect(newState.players[0].wheelCount).toBe(1);
   expect(newState.players[0].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(0);
+  expect(newState.players[1].canTaceBribs).toBe(5);
+  expect(newState.players[2].canTaceBribs).toBe(5);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -254,6 +297,11 @@ it('set of bribes 0 score = 15', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(1);
   expect(newState.players[1].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(5);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(5);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -271,6 +319,11 @@ it('set of bribes 2 score = 15', () => {
   expect(newState.players[1].crossCount).toBe(0);
   expect(newState.players[1].wheelCount).toBe(0);
   expect(newState.players[1].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(3);
+  expect(newState.players[1].canTaceBribs).toBe(0);
+  expect(newState.players[2].canTaceBribs).toBe(3);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -288,6 +341,11 @@ it('set of bribes 0 score = 10 should rise', () => {
   expect(newState.players[2].crossCount).toBe(0);
   expect(newState.players[2].wheelCount).toBe(1);
   expect(newState.players[2].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(5);
+  expect(newState.players[1].canTaceBribs).toBe(5);
+  expect(newState.players[2].canTaceBribs).toBe(0);
+
   expect(newState.someWin).toBe(false);
 });
 
@@ -307,6 +365,11 @@ it('resset players', () => {
   expect(newState.players[2].crossCount).toBe(0);
   expect(newState.players[2].wheelCount).toBe(0);
   expect(newState.players[2].isWin).toBe(false);
+
+  expect(newState.players[0].canTaceBribs).toBe(5);
+  expect(newState.players[1].canTaceBribs).toBe(5);
+  expect(newState.players[2].canTaceBribs).toBe(5);
+
   expect(newState.someWin).toBe(false);
 });
 

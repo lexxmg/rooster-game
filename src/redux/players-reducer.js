@@ -74,6 +74,7 @@ const playersReducer = (state = initialSate, action) => {
         isTouched: false,
         score: 15,
         numberOfBribes: 0,
+        canTaceBribs: 5,
         isJack: false,
         cross: false,
         wheel: false,
@@ -98,13 +99,14 @@ const playersReducer = (state = initialSate, action) => {
       return { ...state, players: newPlayersArray, playerCount: state.playerCount - 1 };
     case SET_OF_BRIBES:
       return { ...state, players: state.players.map(item => {
-          if ( item.id !== action.id ) return item;
+          if ( item.id !== action.id ) return { ...item, canTaceBribs: item.canTaceBribs - action.numberOfBribes };
           if ( action.isJack && action.numberOfBribes !== 0 ) {
             someWin = ( item.score - (action.numberOfBribes + 5) <= 0 );
 
             return { ...item,
               isTouched: true,
               numberOfBribes: action.numberOfBribes,
+              canTaceBribs: 0,
               isJack: action.isJack,
               score: item.score - (action.numberOfBribes + 5),
               isWin: ( item.score - (action.numberOfBribes + 5) <= 0 )
@@ -113,6 +115,7 @@ const playersReducer = (state = initialSate, action) => {
             return { ...item,
               isTouched: true,
               numberOfBribes: action.numberOfBribes,
+              canTaceBribs: 0,
               isJack: action.isJack,
               cross: true,
               crossCount: (item.crossCount + 1)
@@ -123,6 +126,7 @@ const playersReducer = (state = initialSate, action) => {
             return { ...item,
               isTouched: true,
               numberOfBribes: action.numberOfBribes,
+              canTaceBribs: 0,
               isJack: action.isJack,
               score: item.score - action.numberOfBribes,
               isWin: ( item.score - action.numberOfBribes <= 0 )
@@ -131,6 +135,7 @@ const playersReducer = (state = initialSate, action) => {
             return { ...item,
               isTouched: true,
               numberOfBribes: action.numberOfBribes,
+              canTaceBribs: 0,
               isJack: action.isJack,
               wheel: true,
               wheelCount: (item.wheelCount + 1)
@@ -139,6 +144,7 @@ const playersReducer = (state = initialSate, action) => {
             return { ...item,
               isTouched: true,
               numberOfBribes: action.numberOfBribes,
+              canTaceBribs: 0,
               isJack: action.isJack,
               score: (item.score + 5),
               wheel: true,
@@ -160,6 +166,7 @@ const playersReducer = (state = initialSate, action) => {
             losing: 0,
             score: 15,
             numberOfBribes: 0,
+            canTaceBribs: 5,
             isJack: false,
             cross: false,
             wheel: false,
