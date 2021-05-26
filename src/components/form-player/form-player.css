@@ -11,6 +11,36 @@
 
 }
 
+.form-player__input-wrapper {
+  position: relative;
+
+  margin: 0 0 7px 0;
+}
+
+.form-player__errors {
+  position: absolute;
+  top: -36px;
+  left: -7px;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  /* min-height: 70px; */
+
+  padding: 5px;
+
+  border: 1px solid #000;
+  border-radius: 10px;
+
+  background-color: #EBAD4C;
+
+  font-size: 14px;
+
+  text-align: center;
+}
+
 .form-player__label {
   display: block;
 
@@ -20,7 +50,12 @@
 .form-player__input {
   width: 100%;
 
-  margin: 0 0 7px 0;
+  outline: none;
+}
+
+.form-player__input--invalid {
+  /* border: 1px solid #ff0000; */
+  background-color: #C93633;
 }
 
 .form-player__submit {

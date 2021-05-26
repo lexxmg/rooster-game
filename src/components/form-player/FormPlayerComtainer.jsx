@@ -1,7 +1,9 @@
 
 import FormPlayer from './FormPlayer';
 import { connect } from 'react-redux';
-import { setNewPlayer, deletePlayer } from '../../redux/game-reducer';
+//import { setNewPlayer, deletePlayer } from '../../redux/game-reducer';
+import { createNewPlayer, deletePlayer } from '../../redux/players-reducer';
+import { getPlayers, getPlayersCount } from '../../redux/players-selector';
 
 const FormPlayerContainer = (props) => {
   return <FormPlayer {...props}/>
@@ -9,8 +11,9 @@ const FormPlayerContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    players: state.players
+    players: getPlayers(state),
+    playerCount: getPlayersCount(state)
   }
 }
 
-export default connect(mapStateToProps, { setNewPlayer, deletePlayer })(FormPlayerContainer);
+export default connect(mapStateToProps, { createNewPlayer, deletePlayer })(FormPlayerContainer);

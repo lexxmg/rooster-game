@@ -2,21 +2,32 @@
 import './form-player.css';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
+import cn from 'classnames';
 
 const FormPlayer = (props) => {
-  const { setNewPlayer, deletePlayer, players, setIsNewGame } = props;
+  const { createNewPlayer, deletePlayer, players, playerCount, setIsNewGame } = props;
 
-  const createGame = (players.length >= 2 && players.length < 4);
+  const  isNumber = (n) => {
+  return !isNaN( parseFloat(n) ) && isFinite(n);
+}
+
+  const createGame = (playerCount >= 2 && playerCount < 4);
 
   const validate = (values) => {
     const errors = {};
 
     if (!values.name) {
       errors.name = 'поле имя должно быть запольнено';
+    } else if ( !/^[a-zа-яё]+$/i.test(values.name) ) {
+      errors.name = 'в этом поле можно вводить только буквы';
+    }
+
+    if ( values.cash && !isNumber(values.cash) ) {
+      errors.cash = 'в этом поле можно вводить только цифры';
     } else if (!values.cash) {
       errors.cash = 'поле счет должно быть запольнено';
     }
-
+    //console.log(errors);
     return errors;
   }
 
@@ -28,7 +39,7 @@ const FormPlayer = (props) => {
       }}
       onSubmit={(values, actions) => {
         //console.log(values);
-        setNewPlayer(values.name, values.cash);
+        createNewPlayer(values.name, +values.cash);
         //actions.resetForm({});
         actions.setFieldValue('name', '');
         actions.setFieldValue('cash', '');
@@ -41,30 +52,49 @@ const FormPlayer = (props) => {
         return (
           <Form className="form-player__form">
             <label className="form-player__label" htmlFor="name">Имя игрока</label>
-            <Field
-              className="form-player__input"
-              id="name" name="name"
-              placeholder="Имя игрока"
-              disabled={players.length >= 3}
-            />
+
+            <div className="form-player__input-wrapper">
+              {
+                param.errors.name && param.touched.name &&
+                  <div className="form-player__errors">{param.errors.name}</div>
+              }
+              <Field
+                className={
+                  cn( 'form-player__input',
+                    {'form-player__input--invalid': param.errors.name && param.touched.name}
+                  )
+                }
+                id="name" name="name"
+                placeholder="Имя игрока"
+                disabled={players.length >= 3}
+              />
+            </div>
 
             <label className="form-player__label" htmlFor="cash">Счет</label>
-            <Field
-              className="form-player__input"
-              id="cash"
-              name="cash"
-              placeholder="Счет игрока"
-              disabled={players.length >= 3}
-             />
+
+            <div className="form-player__input-wrapper">
+              {
+                param.errors.cash && param.touched.cash &&
+                  <div className="form-player__errors">{param.errors.cash}</div>
+              }
+              <Field
+                className={
+                  cn( 'form-player__input',
+                    {'form-player__input--invalid': param.errors.cash && param.touched.cash}
+                  )
+                }
+                id="cash"
+                name="cash"
+                placeholder="Счет игрока"
+                disabled={playerCount >= 3}
+               />
+             </div>
 
             <button className="form-player__submit"
               type="submit"
               disabled={!(param.values.name && param.values.cash)}
             >Добавить игрока
             </button>
-
-            {param.errors.name && param.touched.name && <span>{param.errors.name}</span>}
-            {param.errors.cash && param.touched.cash && <span>{param.errors.cash}</span>}
           </Form>
         )
       }}
