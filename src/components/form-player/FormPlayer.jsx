@@ -5,11 +5,13 @@ import { Formik, Field, Form } from 'formik';
 import cn from 'classnames';
 
 const FormPlayer = (props) => {
-  const { createNewPlayer, deletePlayer, players, playerCount, setIsNewGame } = props;
+  const { createNewPlayer, deletePlayer, players,
+    playerCount, setIsNewGame, setBet
+  } = props;
 
   const  isNumber = (n) => {
-  return !isNaN( parseFloat(n) ) && isFinite(n);
-}
+    return !isNaN( parseFloat(n) ) && isFinite(n);
+  }
 
   const createGame = (playerCount >= 2 && playerCount < 4);
 
@@ -40,6 +42,8 @@ const FormPlayer = (props) => {
       onSubmit={(values, actions) => {
         //console.log(values);
         createNewPlayer(values.name, +values.cash);
+
+        setBet(10, 5, 10);
         //actions.resetForm({});
         actions.setFieldValue('name', '');
         actions.setFieldValue('cash', '');

@@ -2,9 +2,9 @@
 const SET_BET = 'SET_BET';
 
 const initialSate = {
-  game: 10,
-  wheel: 5,
-  cross: 10
+  game: 0,
+  wheel: 0,
+  cross: 0
 }
 
 export const setBet = (game, wheel, cross) => {
