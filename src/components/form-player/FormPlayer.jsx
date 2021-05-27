@@ -30,6 +30,10 @@ const FormPlayer = (props) => {
     } else if (!values.cash) {
       errors.cash = 'поле счет должно быть запольнено';
     }
+
+    if ( +values.game === 0 || +values.wheel === 0 || +values.cross === 0 ) {
+      errors.bet = 'значения должнны быть больше нуля';
+    }
     //console.log(errors);
     return errors;
   }
@@ -59,7 +63,13 @@ const FormPlayer = (props) => {
         //console.log(param);
         return (
           <Form className="form-player__form">
-            <div className="form-player__bat-container form-player-bat-container">
+            <div className={
+              cn('form-player__bat-container form-player-bat-container',
+                  {'form-player-bat-container--error': param.errors.bet}
+                )
+              }
+            >
+
               <label htmlFor="game" className="form-player-bat-container__label">Кон
                 <Field
                   className="form-player-bat-container__input"

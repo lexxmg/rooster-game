@@ -19,7 +19,11 @@
 }
 
 .form-player-bat-container {
+  
+}
 
+.form-player-bat-container--error {
+  border: 1px solid red;
 }
 
 .form-player-bat-container__label {
