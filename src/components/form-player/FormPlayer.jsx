@@ -6,7 +6,8 @@ import cn from 'classnames';
 
 const FormPlayer = (props) => {
   const { createNewPlayer, deletePlayer, players,
-    playerCount, setIsNewGame, setBet
+    playerCount, setIsNewGame, setBet, gameBet,
+    wheelBet, crossBet
   } = props;
 
   const  isNumber = (n) => {
@@ -37,13 +38,16 @@ const FormPlayer = (props) => {
     <div className="form-player">
       <Formik initialValues={{
         name: '',
-        cash: ''
+        cash: '',
+        game: gameBet,
+        wheel: wheelBet,
+        cross: crossBet
       }}
       onSubmit={(values, actions) => {
         //console.log(values);
         createNewPlayer(values.name, +values.cash);
 
-        setBet(10, 5, 10);
+        setBet(+values.game, +values.wheel, +values.cross);
         //actions.resetForm({});
         actions.setFieldValue('name', '');
         actions.setFieldValue('cash', '');
@@ -55,6 +59,29 @@ const FormPlayer = (props) => {
         //console.log(param);
         return (
           <Form className="form-player__form">
+            <div className="form-player__bat-container form-player-bat-container">
+              <label htmlFor="game" className="form-player-bat-container__label">Кон
+                <Field
+                  className="form-player-bat-container__input"
+                  id="game" name="game"
+                />
+              </label>
+
+              <label htmlFor="wheel" className="form-player-bat-container__label">Колесо
+                <Field
+                  className="form-player-bat-container__input"
+                  id="wheel" name="wheel"
+                />
+              </label>
+
+              <label htmlFor="cross" className="form-player-bat-container__label">Крест
+                <Field
+                  className="form-player-bat-container__input"
+                  id="cross" name="cross"
+                />
+              </label>
+            </div>
+
             <label className="form-player__label" htmlFor="name">Имя игрока</label>
 
             <div className="form-player__input-wrapper">

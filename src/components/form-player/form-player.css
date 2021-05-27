@@ -11,6 +11,31 @@
 
 }
 
+.form-player__bat-container {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0 0 20px 0;
+}
+
+.form-player-bat-container {
+
+}
+
+.form-player-bat-container__label {
+
+}
+
+.form-player-bat-container__input {
+  display: block;
+
+  width: 70px;
+
+  margin: 5px 0 0 0;
+
+  text-align: center;
+}
+
 .form-player__input-wrapper {
   position: relative;
 
