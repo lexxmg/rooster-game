@@ -95,6 +95,12 @@
   outline: none;
 }
 
+.form-player__input:disabled {
+  background-color: #adadad;
+
+  cursor: not-allowed;
+}
+
 .form-player__input--invalid {
   /* border: 1px solid #ff0000; */
   background-color: #C93633;
@@ -143,10 +149,6 @@
 }
 
 .form-player-list__btn {
-  display: block;
-
-  width: 100px;
-
   margin: 0 0 0 auto;
 }
 
@@ -164,7 +166,5 @@
 }
 
 .form-player-btn-container__btn {
-  display: block;
-
   margin: 0 0 0 10px;
 }

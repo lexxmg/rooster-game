@@ -1,0 +1,86 @@
+
+.form-player-btn {
+  display: block;
+
+  padding: 0;
+
+  background-color: transparent;
+
+  border: 1px solid black;
+  border-radius: 10px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.form-player-btn:disabled {
+  background-color: #adadad;
+
+  border: 1px solid transparent;
+
+  color: #828282;
+
+  cursor: not-allowed;
+}
+
+.form-player-btn:hover:not([disabled]) {
+  border-color: #EBAD4C;
+
+  color: #EBAD4C;
+}
+
+.form-player-btn--big {
+  width: 100%;
+  height: 40px;
+}
+
+.form-player-btn--small {
+  width: 90px;
+  height: 25px;
+}
+
+.form-player-btn--red {
+  border-color: #C93633;
+
+  color: #C93633;
+}
+
+.form-player-btn--red-white{
+  border-color: #C93633;
+
+  background-color: white;
+
+  color: #C93633;
+}
+
+.form-player-btn--small.form-player-btn--red:hover {
+  border-color: #C93633;
+
+  background-color: #C93633;
+
+  color: white;
+}
+
+.form-player-btn--small.form-player-btn--red-white:hover {
+  border-color: #C93633;
+
+  background-color: #C93633;
+
+  color: white;
+}
+
+.form-player-btn--maiddle {
+  width: 150px;
+  height: 25px;
+
+  border-color: #EBAD4C;
+
+  color: #EBAD4C;
+}
+
+.form-player-btn--maiddle:hover:not([disabled]) {
+  background-color: #EBAD4C;
+
+  color: white;
+}

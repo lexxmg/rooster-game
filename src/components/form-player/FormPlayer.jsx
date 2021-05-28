@@ -1,5 +1,6 @@
 
 import './form-player.css';
+import './form-player-buttons.css';
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import cn from 'classnames';
@@ -140,7 +141,8 @@ const FormPlayer = (props) => {
                />
              </div>
 
-            <button className="form-player__submit"
+            <button
+              className="form-player__submit form-player-btn form-player-btn--big"
               type="submit"
               disabled={!(param.values.name && param.values.cash)}
             >Добавить игрока
@@ -161,9 +163,9 @@ const FormPlayer = (props) => {
                 <span className="form-player-list__text">Счет: {item.cash} руб.</span>
 
                 <button
-                  className="form-player-list__btn"
-                  onClick={() => {deletePlayer(item.id)}}>
-                  удалить
+                  className="form-player-list__btn form-player-btn form-player-btn--small form-player-btn--red"
+                  onClick={() => {deletePlayer(item.id)}}
+                >удалить
                 </button>
               </li>
             )
@@ -172,18 +174,20 @@ const FormPlayer = (props) => {
       </ul>
 
       <div className="form-player__btn-container form-player-btn-container">
-        {
-          createGame &&
-            <button
-              className="form-player-btn-container__btn"
-              onClick={() => {
-                setIsNewGame(false);
-              }}
-            >Создать игру
-          </button>
-        }
+        <button
+          className="form-player-btn-container__btn form-player-btn form-player-btn--maiddle"
+          disabled={!createGame}
+          onClick={() => {
+            setIsNewGame(false);
+          }}
+        >Создать игру
+        </button>
 
-        <button className="form-player-btn-container__btn" onClick={() => setIsNewGame(false)}>Отмена</button>
+        <button
+          className="form-player-btn-container__btn form-player-list__btn form-player-btn form-player-btn--small form-player-btn--red-white"
+          onClick={() => setIsNewGame(false)}
+        >Отмена
+        </button>
       </div>
     </div>
   )
