@@ -31,9 +31,12 @@ const FormPlayer = (props) => {
       errors.cash = 'поле счет должно быть запольнено';
     }
 
-    if ( +values.game === 0 || +values.wheel === 0 || +values.cross === 0 ) {
-      errors.bet = 'значения должнны быть больше нуля';
+    if ( !isNumber(values.game) || !isNumber(values.wheel) || !isNumber(values.cross) ) {
+      errors.bet = 'можно вводить только цифры';
+    } else if ( +values.game === 0 || +values.wheel === 0 || +values.cross === 0 ) {
+      errors.bet = 'все значения должнны быть больше нуля';
     }
+
     //console.log(errors);
     return errors;
   }
@@ -69,27 +72,33 @@ const FormPlayer = (props) => {
                 )
               }
             >
+              <div className="form-player-bat-container__inner">
+                <label htmlFor="game" className="form-player-bat-container__label">Кон
+                  <Field
+                    className="form-player-bat-container__input"
+                    id="game" name="game"
+                  />
+                </label>
 
-              <label htmlFor="game" className="form-player-bat-container__label">Кон
-                <Field
-                  className="form-player-bat-container__input"
-                  id="game" name="game"
-                />
-              </label>
+                <label htmlFor="wheel" className="form-player-bat-container__label">Колесо
+                  <Field
+                    className="form-player-bat-container__input"
+                    id="wheel" name="wheel"
+                  />
+                </label>
 
-              <label htmlFor="wheel" className="form-player-bat-container__label">Колесо
-                <Field
-                  className="form-player-bat-container__input"
-                  id="wheel" name="wheel"
-                />
-              </label>
+                <label htmlFor="cross" className="form-player-bat-container__label">Крест
+                  <Field
+                    className="form-player-bat-container__input"
+                    id="cross" name="cross"
+                  />
+                </label>
+              </div>
 
-              <label htmlFor="cross" className="form-player-bat-container__label">Крест
-                <Field
-                  className="form-player-bat-container__input"
-                  id="cross" name="cross"
-                />
-              </label>
+              {
+                param.errors.bet &&
+                <span className="form-player-bat-container__text">*{param.errors.bet}</span>
+              }
             </div>
 
             <label className="form-player__label" htmlFor="name">Имя игрока</label>
@@ -146,10 +155,16 @@ const FormPlayer = (props) => {
           players.map((item, index) => {
             return (
               <li className="form-player-list__item" key={item.id}>
-                <span className="form-player-list__text">Игрок № {index + 1} {item.name}</span>
-                <span className="form-player-list__text">Счет {item.cash} руб.</span>
+                <h2 className="form-player-list__title">Игрок № {index + 1}</h2>
 
-                <button className="" onClick={() => {deletePlayer(item.id)}}>удалить</button>
+                <span className="form-player-list__text">Имя: {item.name}</span>
+                <span className="form-player-list__text">Счет: {item.cash} руб.</span>
+
+                <button
+                  className="form-player-list__btn"
+                  onClick={() => {deletePlayer(item.id)}}>
+                  удалить
+                </button>
               </li>
             )
           })
