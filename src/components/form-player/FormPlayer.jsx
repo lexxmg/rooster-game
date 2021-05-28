@@ -144,7 +144,7 @@ const FormPlayer = (props) => {
             <button
               className="form-player__submit form-player-btn form-player-btn--big"
               type="submit"
-              disabled={!(param.values.name && param.values.cash)}
+              disabled={!(param.values.name && param.values.cash && !param.errors.bet)}
             >Добавить игрока
             </button>
           </Form>
