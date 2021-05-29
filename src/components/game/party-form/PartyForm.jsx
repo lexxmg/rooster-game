@@ -3,12 +3,7 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, players } = props;
-
-  //const [ move, setMove ] = React.useState(false);
-
-  // console.log(party.length !== 0);
-  const [ isJack, setIsJack ] = React.useState(false);
+  const { setShow, players, setJackChecked } = props;
 
   const declOfNum = (number, titles) => {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -51,8 +46,8 @@ const PartyForm = (props) => {
                       className=""
                       id={"jack" + item.id}
                       type="checkbox"
-                      onChange={(event) => { console.log(event); console.log(isJack); }}
-                      checked={isJack}
+                      onChange={() => { setJackChecked(item.id, !item.jackChecked) }}
+                      checked={item.jackChecked}
                       disabled={false}
                     />
                   </div>

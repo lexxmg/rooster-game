@@ -4,7 +4,7 @@ import React from 'react';
 import PartyForm from '../party-form/PartyForm';
 
 const Game = (props) => {
-  const { players, playerCount, setShow } = props;
+  const { players, playerCount, setShow, setJackChecked } = props;
 
   const [ showForm, setShowForm ] = React.useState(false);
 
@@ -13,7 +13,8 @@ const Game = (props) => {
       {
         showForm &&
         <PartyForm
-          players={props.players}
+          players={players}
+          setJackChecked={setJackChecked}
           setShow={setShow}
         />
       }

@@ -6,7 +6,10 @@ import Game from '../game/Game';
 import FormPlayerContainer from '../../form-player/FormPlayerComtainer';
 
 const GameWrapper = (props) => {
-  const { players, playerCount, deletePlayers, deleteBet } = props;
+  const {
+    players, playerCount, deletePlayers,
+    deleteBet, setJackChecked
+  } = props;
 
   const [ isNewGame, setIsNewGame ] = React.useState(false);
   const [ showConfirm, setShowConfirm ] = React.useState(false);
@@ -40,6 +43,7 @@ const GameWrapper = (props) => {
           : <Game
               players={players}
               playerCount={playerCount}
+              setJackChecked={setJackChecked}
             />
       }
     </div>

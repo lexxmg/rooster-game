@@ -3,7 +3,7 @@ import React from 'react';
 import GameWrapper from './game-wrapper/GameWrapper';
 import { getPlayers, getPlayerCount } from '../../redux/players-selector';
 import { deleteBet } from '../../redux/bet-reducer';
-import { deletePlayers } from '../../redux/players-reducer';
+import { deletePlayers, setJackChecked } from '../../redux/players-reducer';
 import { connect } from 'react-redux';
 import {} from '../../redux/game-reducer';
 
@@ -18,4 +18,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { deletePlayers, deleteBet })(GameWrapperContainer);
+export default connect(mapStateToProps,
+  {
+    deletePlayers, deleteBet, setJackChecked
+  })(GameWrapperContainer);
