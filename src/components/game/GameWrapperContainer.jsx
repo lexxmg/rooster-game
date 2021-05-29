@@ -1,35 +1,21 @@
 
 import React from 'react';
 import GameWrapper from './game-wrapper/GameWrapper';
+import { getPlayers, getPlayerCount } from '../../redux/players-selector';
+import { deleteBet } from '../../redux/bet-reducer';
+import { deletePlayers } from '../../redux/players-reducer';
 import { connect } from 'react-redux';
-import { setNewPlayer, setPartyGame,
-  resetGame, setPlayerPoint, setPartyWin,
-  setPlayerWheelIncrement, setPlayerCrossIncrement,
-  resetPlayer, setCachPlayer
-} from '../../redux/game-reducer';
-
-//const playerExample = {name: 'lexx', cash: 0};
+import {} from '../../redux/game-reducer';
 
 const GameWrapperContainer = (props) => {
-  //const {setNewPlayer} = props;
-
-  // React.useEffect(() => {
-  //   setNewPlayer('lexx', 10);
-  // }, [setNewPlayer]);
-
   return <GameWrapper {...props} />
 }
 
 const mapStateToProps = (state) => {
   return {
-    players: state.game.players,
-    party: state.game.party,
+    players: getPlayers(state),
+    playerCount: getPlayerCount(state)
   }
 }
 
-export default connect(mapStateToProps, {
-    setNewPlayer, setPartyGame,
-    resetGame, setPlayerPoint, setPartyWin,
-    setPlayerWheelIncrement, setPlayerCrossIncrement,
-    resetPlayer, setCachPlayer
-  })(GameWrapperContainer);
+export default connect(mapStateToProps, { deletePlayers, deleteBet })(GameWrapperContainer);

@@ -6,17 +6,14 @@ import Game from '../game/Game';
 import FormPlayerContainer from '../../form-player/FormPlayerComtainer';
 
 const GameWrapper = (props) => {
-  const { setPartyGame, party, players,
-    resetGame, setPlayerPoint, setPartyWin,
-    setPlayerWheelIncrement, setPlayerCrossIncrement,
-    resetPlayer, setCachPlayer
-  } = props;
+  const { players, playerCount, deletePlayers, deleteBet } = props;
 
   const [ isNewGame, setIsNewGame ] = React.useState(false);
   const [ showConfirm, setShowConfirm ] = React.useState(false);
 
   const handler = () => {
-    resetGame();
+    deleteBet();
+    deletePlayers();
     setIsNewGame(true);
   }
 
@@ -30,7 +27,7 @@ const GameWrapper = (props) => {
       />
 
       <button onClick={() => {
-        if (players.length > 0) {
+        if (playerCount > 0) {
           setShowConfirm(true);
         } else {
           setIsNewGame(true);
@@ -42,14 +39,7 @@ const GameWrapper = (props) => {
           ? <FormPlayerContainer setIsNewGame={setIsNewGame}/>
           : <Game
               players={players}
-              party={party}
-              setPartyGame={setPartyGame}
-              setPlayerPoint={setPlayerPoint}
-              setPartyWin={setPartyWin}
-              setPlayerWheelIncrement={setPlayerWheelIncrement}
-              setPlayerCrossIncrement={setPlayerCrossIncrement}
-              resetPlayer={resetPlayer}
-              setCachPlayer={setCachPlayer}
+              playerCount={playerCount}
             />
       }
     </div>

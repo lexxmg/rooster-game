@@ -3,9 +3,10 @@
 // import thunk from 'redux-thunk';
 import playersReducer,
   { createNewPlayer, setCashPlayer, deletePlayer,
-    setOfBribes, resetPlayers, setGainAndLosing
+    setOfBribes, resetPlayers, setGainAndLosing, deletePlayers,
+    setJackChecked
   } from './players-reducer';
-
+//console.log(createNewPlayer);
 // const middlewares = [thunk] // add your middlewares like `redux-thunk`
 // const mockStore = configureStore(middlewares)
 
@@ -21,6 +22,7 @@ const initialState = {
       numberOfBribes: 0,
       canTaceBribs: 5,
       isJack: false,
+      jackChecked: false,
       cross: false,
       wheel: false,
       crossCount: 0,
@@ -37,6 +39,7 @@ const initialState = {
       numberOfBribes: 0,
       canTaceBribs: 5,
       isJack: false,
+      jackChecked: false,
       cross: false,
       wheel: false,
       crossCount: 0,
@@ -53,6 +56,7 @@ const initialState = {
       numberOfBribes: 0,
       canTaceBribs: 5,
       isJack: false,
+      jackChecked: false,
       cross: false,
       wheel: false,
       crossCount: 0,
@@ -88,12 +92,30 @@ it('set cash player', () => {
   expect(newState.players[1].cash).toBe(50);
 });
 
+it('set jack checked', () => {
+  const action = setJackChecked(2, true);
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+ expect(newState.players[1].jackChecked).toBe(true);
+});
+
 it('delete player', () => {
   const action = deletePlayer(2);
   const newState = playersReducer(initialState, action);
   //console.log(newState);
 
   expect(newState.players.length).toBe(2);
+});
+
+it('delete players', () => {
+  const action = deletePlayers();
+  const newState = playersReducer(initialState, action);
+  //console.log(newState);
+
+  expect(newState.players.length).toBe(0);
+  expect(newState.playerCount).toBe(0);
+  expect(newState.someWin).toBe(false);
 });
 
 it('player count decriment', () => {

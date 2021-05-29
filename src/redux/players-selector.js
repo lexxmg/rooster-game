@@ -3,6 +3,6 @@ export const getPlayers = (state) => {
   return state.players.players;
 }
 
-export const getPlayersCount = (state) => {
+export const getPlayerCount = (state) => {
   return state.players.playerCount;
 }

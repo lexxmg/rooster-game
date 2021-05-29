@@ -4,7 +4,9 @@ const CREATE_NEW_PLAYER = 'CREATE_NEW_PLAYER',
       SET_GAIN_AND_LOSING = 'SET_GAIN_AND_LOSING',
       DELETE_PLAYER = 'DELETE_PLAYER',
       SET_OF_BRIBES = 'SET_OF_BRIBES',
-      RESET_PLEYERS = 'RESET_PLEYERS';
+      SET_JACK_CHECKED = 'SET_JACK_CHECKED',
+      RESET_PLEYERS = 'RESET_PLEYERS',
+      DELETE_PLEYERS = 'DELETE_PLEYERS';
 
 export const createNewPlayer = (name, cash) => {
   return {
@@ -20,14 +22,22 @@ export const setCashPlayer = (id, cash) => {
     id,
     cash
   }
-}
+};
+
+export const setJackChecked = (id, checked) => {
+  return {
+    type: SET_JACK_CHECKED,
+    id,
+    checked
+  }
+};
 
 export const deletePlayer = (id) => {
   return {
     type: DELETE_PLAYER,
     id
   }
-}
+};
 
 export const setOfBribes = (id, numberOfBribes, isJack) => {
   return {
@@ -36,7 +46,7 @@ export const setOfBribes = (id, numberOfBribes, isJack) => {
     numberOfBribes,
     isJack
   }
-}
+};
 
 export const setGainAndLosing = (id, gain, losing) => {
   return {
@@ -45,7 +55,7 @@ export const setGainAndLosing = (id, gain, losing) => {
     gain,
     losing
   }
-}
+};
 
 export const resetPlayers = () => {
   return {
@@ -53,12 +63,17 @@ export const resetPlayers = () => {
   }
 }
 
+export const deletePlayers = () => {
+  return {
+    type: DELETE_PLEYERS
+  }
+};
 
 const initialSate = {
   players: [],
   playerCount: 0,
   someWin: false
-}
+};
 
 const playersReducer = (state = initialSate, action) => {
   let someWin = false;
@@ -76,6 +91,7 @@ const playersReducer = (state = initialSate, action) => {
         numberOfBribes: 0,
         canTaceBribs: 5,
         isJack: false,
+        jackChecked: false,
         cross: false,
         wheel: false,
         crossCount: 0,
@@ -85,12 +101,19 @@ const playersReducer = (state = initialSate, action) => {
 
       return { ...state, players: [...state.players, player], playerCount: state.playerCount + 1 };
     case SET_CASH_PLAYER:
-      const newPlaerCash = state.players.map(item => {
+      const newPlayerCash = state.players.map(item => {
         if (item.id !== action.id)  return item;
         return { ...item, cash: action.cash };
       });
 
-      return { ...state, players: newPlaerCash };
+      return { ...state, players: newPlayerCash };
+    case SET_JACK_CHECKED:
+      const newPlayerChecked = state.players.map(item => {
+        if (item.id !== action.id)  return item;
+        return { ...item, jackChecked: action.checked };
+      });
+
+      return { ...state, players: newPlayerChecked };
     case DELETE_PLAYER:
       const newPlayersArray = state.players.filter(item => {
         return item.id !== action.id;
@@ -168,6 +191,7 @@ const playersReducer = (state = initialSate, action) => {
             numberOfBribes: 0,
             canTaceBribs: 5,
             isJack: false,
+            jackChecked: false,
             cross: false,
             wheel: false,
             crossCount: 0,
@@ -175,6 +199,8 @@ const playersReducer = (state = initialSate, action) => {
             isWin: false
           }
         }), someWin: false };
+    case DELETE_PLEYERS:
+      return { ...state, players: [], playerCount: 0, someWin: false };
     default:
       return state;
   }
