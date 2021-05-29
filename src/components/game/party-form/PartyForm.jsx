@@ -3,7 +3,7 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, players, setJackChecked } = props;
+  const { setShow, players, setJackChecked, setOfBribes, resetBribes } = props;
 
   const declOfNum = (number, titles) => {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -26,7 +26,7 @@ const PartyForm = (props) => {
           {
             players.map(item => {
               const bribes = [];
-              for (let i = 1; i <= item.canTaceBribs; i++) {
+              for (let i = 0; i <= item.canTaceBribs; i++) {
                 bribes.push(i);
               }
               return (
@@ -57,7 +57,7 @@ const PartyForm = (props) => {
                       return (
                         <button
                           className="" key={j}
-                          onClick={() => { console.log('взяток', el) }}
+                          onClick={() => { setOfBribes(item.id, el, item.jackChecked) }}
                         >{el}
                         </button>
                       )
@@ -86,7 +86,7 @@ const PartyForm = (props) => {
           }>закрыть</button>
 
           <button className="party-form__btn" onClick={() => {
-            //setCountScore([0, 1, 2, 3, 4, 5]);
+            resetBribes();
           }}>сброс</button>
         </div>
       </div>
