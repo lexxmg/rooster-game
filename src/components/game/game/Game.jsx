@@ -6,7 +6,7 @@ import PartyForm from '../party-form/PartyForm';
 const Game = (props) => {
   const { players, playerCount,
     setJackChecked, setOfBribes, createPartyForm,
-    partyForm, jackCount, partyFormReset
+    partyForm, jackCount, partyFormReset, setOfBribesFormParty
   } = props;
 
   const [ showForm, setShowForm ] = React.useState(false);
@@ -24,6 +24,7 @@ const Game = (props) => {
           partyForm={partyForm}
           jackCount={jackCount}
           partyFormReset={partyFormReset}
+          setOfBribesFormParty={setOfBribesFormParty}
         />
       }
 

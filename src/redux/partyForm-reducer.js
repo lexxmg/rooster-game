@@ -1,7 +1,8 @@
 
 const CREATE_PARTY_FORM = 'CREATE_PARTY_FORM',
       PARTY_FORM_RESET = 'PARTY_FORM_RESET',
-      SET_JACK_CHECKED = 'SET_JACK_CHECKED';
+      SET_JACK_CHECKED = 'SET_JACK_CHECKED',
+      SET_BRIBES_FORM_PARTY = 'SET_BRIBES_FORM_PARTY';
 
 export const createPartyForm = (arrPlayers) => {
   return {
@@ -18,11 +19,19 @@ export const setJackChecked = (id, checked) => {
   }
 };
 
+export const setOfBribesFormParty = (id, numberOfBribes) => {
+  return {
+    type: SET_BRIBES_FORM_PARTY,
+    id,
+    numberOfBribes
+  };
+};
+
 export const partyFormReset = () => {
   return {
     type: PARTY_FORM_RESET
   }
-}
+};
 
 const initialState = {
   partyForm: [],
@@ -37,6 +46,13 @@ const partyFormReducer = (state = initialState, action) => {
       });
 
       return { ...state, partyForm: newPartyForm };
+    case SET_BRIBES_FORM_PARTY:
+      const newPartyFormBribes = state.partyForm.map(item => {
+        if (item.id !== action.id) return item;
+        return { ...item, numberOfBribes: action.numberOfBribes };
+      });
+
+      return { ...state, partyForm: newPartyFormBribes};
     case SET_JACK_CHECKED:
       const newPlayerChecked = state.partyForm.map(item => {
         if (item.id !== action.id)  return item;

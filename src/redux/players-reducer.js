@@ -175,7 +175,6 @@ const playersReducer = (state = initialSate, action) => {
             numberOfBribes: 0,
             canTaceBribs: 5,
             isJack: false,
-            //jackChecked: false,
             cross: false,
             wheel: false,
             crossCount: 0,

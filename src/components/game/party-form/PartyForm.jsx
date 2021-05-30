@@ -6,7 +6,7 @@ const PartyForm = (props) => {
   const { setShowForm, players,
     setJackChecked, createPartyForm,
     partyForm, setOfBribes, jackCount,
-    partyFormReset
+    partyFormReset, setOfBribesFormParty
   } = props;
 
   const declOfNum = (number, titles) => {
@@ -66,7 +66,7 @@ const PartyForm = (props) => {
                       return (
                         <button
                           className="" key={j}
-                          onClick={() => { console.log('bribes', el); }}
+                          onClick={() => setOfBribesFormParty(item.id, el) }
                         >{el}
                         </button>
                       )
@@ -86,6 +86,7 @@ const PartyForm = (props) => {
               partyForm.forEach(item => {
                 setOfBribes(item.id, item.numberOfBribes, item.isJack);
               });
+              partyFormReset();
               setShowForm(false);
             }}>применить
           </button>

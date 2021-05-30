@@ -10,7 +10,7 @@ const GameWrapper = (props) => {
     players, playerCount, deletePlayers,
     deleteBet, setJackChecked, setOfBribes,
     createPartyForm, partyForm, jackCount,
-    partyFormReset
+    partyFormReset, setOfBribesFormParty
   } = props;
 
   const [ isNewGame, setIsNewGame ] = React.useState(false);
@@ -51,6 +51,7 @@ const GameWrapper = (props) => {
               partyForm={partyForm}
               jackCount={jackCount}
               partyFormReset={partyFormReset}
+              setOfBribesFormParty={setOfBribesFormParty}
             />
       }
     </div>
