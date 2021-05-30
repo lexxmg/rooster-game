@@ -3,7 +3,10 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShowForm, players, setJackChecked, createPartyForm, partyForm, setOfBribes } = props;
+  const { setShowForm, players,
+    setJackChecked, createPartyForm,
+    partyForm, setOfBribes, jackCount
+  } = props;
 
   const declOfNum = (number, titles) => {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -22,6 +25,9 @@ const PartyForm = (props) => {
   return (
     <div className="party-form-wrapper">
       <div className="party-form">
+
+        <span>{jackCount}</span>
+
         <div className="party-form__content">
           {
             partyForm.map(item => {
@@ -46,9 +52,11 @@ const PartyForm = (props) => {
                       className=""
                       id={"jack" + item.id}
                       type="checkbox"
-                      onChange={() => { setJackChecked(item.id, !item.jackChecked) }}
+                      onChange={() => {
+                        setJackChecked(item.id, !item.jackChecked);
+                      }}
                       checked={item.jackChecked}
-                      disabled={false}
+                      disabled={jackCount >= 2 && !item.jackChecked}
                     />
                   </div>
 

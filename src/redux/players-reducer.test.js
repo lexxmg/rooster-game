@@ -22,7 +22,6 @@ const initialState = {
       numberOfBribes: 0,
       canTaceBribs: 5,
       isJack: false,
-      jackChecked: false,
       cross: false,
       wheel: false,
       crossCount: 0,
@@ -39,7 +38,6 @@ const initialState = {
       numberOfBribes: 0,
       canTaceBribs: 5,
       isJack: false,
-      jackChecked: false,
       cross: false,
       wheel: false,
       crossCount: 0,
@@ -56,7 +54,6 @@ const initialState = {
       numberOfBribes: 0,
       canTaceBribs: 5,
       isJack: false,
-      jackChecked: false,
       cross: false,
       wheel: false,
       crossCount: 0,
@@ -90,14 +87,6 @@ it('set cash player', () => {
   //console.log(newState);
 
   expect(newState.players[1].cash).toBe(50);
-});
-
-it('set jack checked', () => {
-  const action = setJackChecked(2, true);
-  const newState = playersReducer(initialState, action);
-  //console.log(newState);
-
- expect(newState.players[1].jackChecked).toBe(true);
 });
 
 it('delete player', () => {

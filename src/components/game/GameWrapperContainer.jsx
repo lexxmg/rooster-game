@@ -3,9 +3,9 @@ import React from 'react';
 import GameWrapper from './game-wrapper/GameWrapper';
 import { getPlayers, getPlayerCount } from '../../redux/players-selector';
 import { deleteBet } from '../../redux/bet-reducer';
-import { deletePlayers, setJackChecked, setOfBribes } from '../../redux/players-reducer';
-import { createPartyForm } from '../../redux/partyForm-reducer';
-import { getPartyForm } from '../../redux/partyForm-selector';
+import { deletePlayers, setOfBribes } from '../../redux/players-reducer';
+import { createPartyForm, setJackChecked } from '../../redux/partyForm-reducer';
+import { getPartyForm, getJackCount } from '../../redux/partyForm-selector';
 import { connect } from 'react-redux';
 import {} from '../../redux/game-reducer';
 
@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
   return {
     players: getPlayers(state),
     playerCount: getPlayerCount(state),
-    partyForm: getPartyForm(state)
+    partyForm: getPartyForm(state),
+    jackCount: getJackCount(state)
   }
 }
 

@@ -4,7 +4,6 @@ const CREATE_NEW_PLAYER = 'CREATE_NEW_PLAYER',
       SET_GAIN_AND_LOSING = 'SET_GAIN_AND_LOSING',
       DELETE_PLAYER = 'DELETE_PLAYER',
       SET_OF_BRIBES = 'SET_OF_BRIBES',
-      SET_JACK_CHECKED = 'SET_JACK_CHECKED',
       RESET_PLEYERS = 'RESET_PLEYERS',
       DELETE_PLEYERS = 'DELETE_PLEYERS';
 
@@ -21,14 +20,6 @@ export const setCashPlayer = (id, cash) => {
     type: SET_CASH_PLAYER,
     id,
     cash
-  }
-};
-
-export const setJackChecked = (id, checked) => {
-  return {
-    type: SET_JACK_CHECKED,
-    id,
-    checked
   }
 };
 
@@ -91,7 +82,7 @@ const playersReducer = (state = initialSate, action) => {
         numberOfBribes: 0,
         canTaceBribs: 5,
         isJack: false,
-        jackChecked: false,
+        //jackChecked: false,
         cross: false,
         wheel: false,
         crossCount: 0,
@@ -107,13 +98,6 @@ const playersReducer = (state = initialSate, action) => {
       });
 
       return { ...state, players: newPlayerCash };
-    case SET_JACK_CHECKED:
-      const newPlayerChecked = state.players.map(item => {
-        if (item.id !== action.id)  return item;
-        return { ...item, jackChecked: action.checked };
-      });
-
-      return { ...state, players: newPlayerChecked };
     case DELETE_PLAYER:
       const newPlayersArray = state.players.filter(item => {
         return item.id !== action.id;
@@ -191,7 +175,7 @@ const playersReducer = (state = initialSate, action) => {
             numberOfBribes: 0,
             canTaceBribs: 5,
             isJack: false,
-            jackChecked: false,
+            //jackChecked: false,
             cross: false,
             wheel: false,
             crossCount: 0,
