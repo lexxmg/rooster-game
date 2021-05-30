@@ -6,7 +6,6 @@ const CREATE_NEW_PLAYER = 'CREATE_NEW_PLAYER',
       SET_OF_BRIBES = 'SET_OF_BRIBES',
       SET_JACK_CHECKED = 'SET_JACK_CHECKED',
       RESET_PLEYERS = 'RESET_PLEYERS',
-      RESET_BRIBES = 'RESET_BRIBES',
       DELETE_PLEYERS = 'DELETE_PLEYERS';
 
 export const createNewPlayer = (name, cash) => {
@@ -24,12 +23,6 @@ export const setCashPlayer = (id, cash) => {
     cash
   }
 };
-
-export const resetBribes = () => {
-  return {
-    type: RESET_BRIBES
-  }
-}
 
 export const setJackChecked = (id, checked) => {
   return {
@@ -206,16 +199,6 @@ const playersReducer = (state = initialSate, action) => {
             isWin: false
           }
         }), someWin: false };
-    case RESET_BRIBES:
-      return { ...state, players: state.players.map(item => {
-          return { ...item,
-            isTouched: false,
-            numberOfBribes: 0,
-            canTaceBribs: 5,
-            jackChecked: false,
-          }
-        })
-      };
     case DELETE_PLEYERS:
       return { ...state, players: [], playerCount: 0, someWin: false };
     default:

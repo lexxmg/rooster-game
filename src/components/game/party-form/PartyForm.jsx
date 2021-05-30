@@ -3,7 +3,7 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, players, setJackChecked, setOfBribes, resetBribes } = props;
+  const { setShow, players, setJackChecked, setOfBribes } = props;
 
   const declOfNum = (number, titles) => {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -57,7 +57,7 @@ const PartyForm = (props) => {
                       return (
                         <button
                           className="" key={j}
-                          onClick={() => { setOfBribes(item.id, el, item.jackChecked) }}
+                          onClick={() => { console.log('bribes', el); }}
                         >{el}
                         </button>
                       )
@@ -85,9 +85,7 @@ const PartyForm = (props) => {
            }
           }>закрыть</button>
 
-          <button className="party-form__btn" onClick={() => {
-            resetBribes();
-          }}>сброс</button>
+          <button className="party-form__btn" onClick={() => {}}>сброс</button>
         </div>
       </div>
     </div>
