@@ -17,14 +17,25 @@
 }
 
 .form-player-bat-container {
-
+  position: relative;
+  z-index: 50;
 }
 
-.form-player-bat-container--error {
+.form-player-bat-container--error::after {
+  content: "";
 
-  box-shadow: 0 0 0 4px #C93633;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
 
+  display: block;
+  /* width: calc(100% + 10px); */
+  /* height: 83px; */
 
+  border: 2px solid #C93633;
   border-radius: 10px;
 }
 
