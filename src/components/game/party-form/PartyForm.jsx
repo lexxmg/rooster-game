@@ -3,7 +3,7 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShow, players, setJackChecked, setOfBribes } = props;
+  const { setShowForm, players, setJackChecked, createPartyForm, partyForm, setOfBribes } = props;
 
   const declOfNum = (number, titles) => {
     const cases = [2, 0, 1, 1, 1, 2];
@@ -16,15 +16,15 @@ const PartyForm = (props) => {
   }
 
   React.useEffect(() => {
-    //console.log(party);
-  });
+    createPartyForm(players);
+  }, [players, createPartyForm]);
 
   return (
     <div className="party-form-wrapper">
       <div className="party-form">
         <div className="party-form__content">
           {
-            players.map(item => {
+            partyForm.map(item => {
               const bribes = [];
               for (let i = 0; i <= item.canTaceBribs; i++) {
                 bribes.push(i);
@@ -74,13 +74,16 @@ const PartyForm = (props) => {
             className="party-form__btn"
             disabled={false}
             onClick={() => {
-              setShow(false);
+              partyForm.forEach(item => {
+                setOfBribes(item.id, item.numberOfBribes, item.isJack);
+              });
+              setShowForm(false);
             }}>применить
           </button>
 
           <button className="party-form__btn"
           onClick={() => {
-            setShow(false);
+            setShowForm(false);
             //setCountScore([0, 1, 2, 3, 4, 5]);
            }
           }>закрыть</button>
