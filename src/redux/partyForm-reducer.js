@@ -1,5 +1,6 @@
 
 const CREATE_PARTY_FORM = 'CREATE_PARTY_FORM',
+      PARTY_FORM_RESET = 'PARTY_FORM_RESET',
       SET_JACK_CHECKED = 'SET_JACK_CHECKED';
 
 export const createPartyForm = (arrPlayers) => {
@@ -16,6 +17,12 @@ export const setJackChecked = (id, checked) => {
     checked
   }
 };
+
+export const partyFormReset = () => {
+  return {
+    type: PARTY_FORM_RESET
+  }
+}
 
 const initialState = {
   partyForm: [],
@@ -39,6 +46,17 @@ const partyFormReducer = (state = initialState, action) => {
       newPlayerChecked.forEach(item => { if (item.jackChecked) ++jackCount });
 
       return { ...state, partyForm: newPlayerChecked, jackCount: jackCount };
+    case PARTY_FORM_RESET:
+      const partyFormReset = state.partyForm.map(item => {
+        return { ...item,
+          jackChecked: false,
+          numberOfBribes: 0,
+          canTaceBribs: 5,
+          isJack: false,
+        };
+      });
+
+      return { ...state, partyForm: partyFormReset, jackCount: 0 };
     default:
      return state;
   }
