@@ -2,11 +2,25 @@
 
 }
 
+.game__wrapper {
+  border: 1px solid #000;
+  border-radius: 10px;
+
+  padding: 5px;
+
+  background-color: white;
+}
+
 .game__head {
   display: flex;
   justify-content: space-between;
 
+  padding: 5px;
+
   background-color: #adadad;
+
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 
   font-weight: 600;
 }
@@ -25,6 +39,12 @@
 
 .game-player__cash {
   margin: 0 0 0 10px;
+}
+
+.part-game__wrapper {
+  max-height: calc(100vh - 220px);
+
+  overflow-y: auto;
 }
 
 .part-game {

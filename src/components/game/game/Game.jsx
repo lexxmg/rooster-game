@@ -11,6 +11,11 @@ const Game = (props) => {
 
   const [ showForm, setShowForm ] = React.useState(false);
 
+  const arrPartTest = [];
+  for (let i = 0; i < 40; i++) {
+    arrPartTest.push(i);
+  }
+
   return (
     <div className="game">
       {
@@ -28,68 +33,80 @@ const Game = (props) => {
         />
       }
 
-      <div className="game__head fixed-container">
+      <div className="game__wrapper">
+        <div className="game__head fixed-container">
+          {
+            players.map(item => {
+              return (
+                <div className="game__player game-player"  key={item.id}>
+                  <span>{item.point} </span>
+                  <span className="game-player__name">{item.name}</span>
+                  <span className="game-player__cash">{item.cash} руб.</span>
+                  <span className=""> (+_{item.crossCount}) </span>
+                  <span className=""> (o_{item.wheelCount}) </span>
+                </div>
+              )
+            })
+          }
+        </div>
+
+        <div className="part-game__wrapper">
+          {
+            arrPartTest.map(item => {
+              return (
+                <div className="">{item} Lorem ipsum dolor sit amet, consectetur.</div>
+              )
+            })
+          }
+        </div>
+
         {
-          players.map(item => {
-            return (
-              <div className="game__player game-player"  key={item.id}>
-                <span>{item.point} </span>
-                <span className="game-player__name">{item.name}</span>
-                <span className="game-player__cash">{item.cash} руб.</span>
-                <span className=""> (+_{item.crossCount}) </span>
-                <span className=""> (o_{item.wheelCount}) </span>
-              </div>
-            )
-          })
+          // party.map((item, index) => {
+          //   if (item.isSomeWin) {
+          //     return (
+          //       <div className="part-game" key={index}>
+          //         <h2 className="part-game__title">партия {index + 1} выигрышь</h2>
+          //
+          //         <div className="part-game__inner">
+          //           {
+          //             item.players.map(item => {
+          //               return (
+          //                 <div className="part-game__item" key={item.id}>
+          //                   <ul className="">
+          //                     <li className="">{item.name}</li>
+          //                     <li className="">{item.isWin && 'выиграл'}</li>
+          //                   </ul>
+          //                 </div>
+          //               )
+          //             })
+          //           }
+          //         </div>
+          //       </div>
+          //     )
+          //   } else {
+          //     return (
+          //       <div className="part-game" key={index}>
+          //         <h2 className="part-game__title">партия {index + 1}</h2>
+          //
+          //         <div className="part-game__inner">
+          //           {
+          //             item.players.map(item => {
+          //               return (
+          //                 <div className="part-game__item" key={item.id}>
+          //                   {item.score}
+          //                   {item.cross && <span> +</span>}
+          //                   {item.wheel && <span> o</span>}
+          //                 </div>
+          //               )
+          //             })
+          //           }
+          //         </div>
+          //       </div>
+          //     )
+          //   }
+          // })
         }
       </div>
-
-      {
-        // party.map((item, index) => {
-        //   if (item.isSomeWin) {
-        //     return (
-        //       <div className="part-game" key={index}>
-        //         <h2 className="part-game__title">партия {index + 1} выигрышь</h2>
-        //
-        //         <div className="part-game__inner">
-        //           {
-        //             item.players.map(item => {
-        //               return (
-        //                 <div className="part-game__item" key={item.id}>
-        //                   <ul className="">
-        //                     <li className="">{item.name}</li>
-        //                     <li className="">{item.isWin && 'выиграл'}</li>
-        //                   </ul>
-        //                 </div>
-        //               )
-        //             })
-        //           }
-        //         </div>
-        //       </div>
-        //     )
-        //   } else {
-        //     return (
-        //       <div className="part-game" key={index}>
-        //         <h2 className="part-game__title">партия {index + 1}</h2>
-        //
-        //         <div className="part-game__inner">
-        //           {
-        //             item.players.map(item => {
-        //               return (
-        //                 <div className="part-game__item" key={item.id}>
-        //                   {item.score}
-        //                   {item.cross && <span> +</span>}
-        //                   {item.wheel && <span> o</span>}
-        //                 </div>
-        //               )
-        //             })
-        //           }
-        //         </div>
-        //       </div>
-        //     )
-        //   }
-        // })
-      }
 
       { (playerCount > 0) && <button onClick={() => {
 
