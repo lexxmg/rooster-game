@@ -19,9 +19,9 @@ const PartyForm = (props) => {
     ];
   }
 
-  React.useEffect(() => {
-    createPartyForm(players);
-  }, [players, createPartyForm]);
+  // React.useEffect(() => {
+  //   createPartyForm(players);
+  // }, [players, createPartyForm]);
 
   return (
     <div className="party-form-wrapper">

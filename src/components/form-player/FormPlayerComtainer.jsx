@@ -1,7 +1,7 @@
 
 import FormPlayer from './FormPlayer';
 import { connect } from 'react-redux';
-//import { setNewPlayer, deletePlayer } from '../../redux/game-reducer';
+import { createPartyForm } from '../../redux/partyForm-reducer';
 import { createNewPlayer, deletePlayer } from '../../redux/players-reducer';
 import { getPlayers, getPlayerCount } from '../../redux/players-selector';
 import { setBet } from '../../redux/bet-reducer';
@@ -22,5 +22,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps,
-  { createNewPlayer, deletePlayer, setBet }
+  { createNewPlayer, deletePlayer, setBet, createPartyForm }
 )(FormPlayerContainer);

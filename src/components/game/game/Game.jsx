@@ -54,7 +54,7 @@ const Game = (props) => {
           {
             arrPartTest.map(item => {
               return (
-                <div className="">{item} Lorem ipsum dolor sit amet, consectetur.</div>
+                <div className="" key={item}>{item} Lorem ipsum dolor sit amet, consectetur.</div>
               )
             })
           }

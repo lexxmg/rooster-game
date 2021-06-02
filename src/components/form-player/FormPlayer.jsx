@@ -8,7 +8,7 @@ import cn from 'classnames';
 const FormPlayer = (props) => {
   const { createNewPlayer, deletePlayer, players,
     playerCount, setIsNewGame, setBet, gameBet,
-    wheelBet, crossBet
+    wheelBet, crossBet, createPartyForm
   } = props;
 
   const  isNumber = (n) => {
@@ -179,6 +179,7 @@ const FormPlayer = (props) => {
           disabled={!createGame}
           onClick={() => {
             setIsNewGame(false);
+            createPartyForm(players);
           }}
         >Создать игру
         </button>
