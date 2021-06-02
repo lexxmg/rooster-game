@@ -9,7 +9,7 @@ const GameWrapper = (props) => {
   const {
     players, playerCount, deletePlayers,
     deleteBet, setJackChecked, setOfBribes,
-    createPartyForm, partyForm, jackCount,
+    partyForm, jackCount,
     partyFormReset, setOfBribesFormParty
   } = props;
 
@@ -47,7 +47,6 @@ const GameWrapper = (props) => {
               playerCount={playerCount}
               setOfBribes={setOfBribes}
               setJackChecked={setJackChecked}
-              createPartyForm={createPartyForm}
               partyForm={partyForm}
               jackCount={jackCount}
               partyFormReset={partyFormReset}

@@ -3,8 +3,7 @@ import './party-form.css';
 import React from 'react';
 
 const PartyForm = (props) => {
-  const { setShowForm, players,
-    setJackChecked, createPartyForm,
+  const { setShowForm, setJackChecked,
     partyForm, setOfBribes, jackCount,
     partyFormReset, setOfBribesFormParty
   } = props;

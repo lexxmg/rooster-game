@@ -5,7 +5,7 @@ import PartyForm from '../party-form/PartyForm';
 
 const Game = (props) => {
   const { players, playerCount,
-    setJackChecked, setOfBribes, createPartyForm,
+    setJackChecked, setOfBribes,
     partyForm, jackCount, partyFormReset, setOfBribesFormParty
   } = props;
 
@@ -21,11 +21,9 @@ const Game = (props) => {
       {
         showForm &&
         <PartyForm
-          players={players}
           setJackChecked={setJackChecked}
           setOfBribes={setOfBribes}
           setShowForm={setShowForm}
-          createPartyForm={createPartyForm}
           partyForm={partyForm}
           jackCount={jackCount}
           partyFormReset={partyFormReset}
