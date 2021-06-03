@@ -42,6 +42,7 @@ const Game = (props) => {
                   <span className="game-player__cash">{item.cash} руб.</span>
                   <span className=""> (+_{item.crossCount}) </span>
                   <span className=""> (o_{item.wheelCount}) </span>
+                  <span className=""> (счет_{item.score}) </span>
                 </div>
               )
             })

@@ -83,7 +83,7 @@ const PartyForm = (props) => {
             disabled={false}
             onClick={() => {
               partyForm.forEach(item => {
-                setOfBribes(item.id, item.numberOfBribes, item.isJack);
+                setOfBribes(item.id, item.numberOfBribes, item.jackChecked);
               });
               partyFormReset();
               setShowForm(false);
