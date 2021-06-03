@@ -35,24 +35,42 @@ export const partyFormReset = () => {
 
 const initialState = {
   partyForm: [],
-  jackCount: 0
+  jackCount: 0,
+  allBribesCount: 0
 };
 
 const partyFormReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_PARTY_FORM:
       const newPartyForm = action.arrPlayers.map(item => {
-        return { ...item, jackChecked: false };
+        return { ...item,
+          jackChecked: false,
+          canTaceBribs: [0, 1, 2, 3, 4, 5]
+        };
       });
 
       return { ...state, partyForm: newPartyForm };
     case SET_BRIBES_FORM_PARTY:
       const newPartyFormBribes = state.partyForm.map(item => {
-        if (item.id !== action.id) return item;
-        return { ...item, numberOfBribes: action.numberOfBribes };
+        if (item.id === action.id) {
+          return { ...item,
+            numberOfBribes: action.numberOfBribes,
+            canTaceBribs: []
+          };
+        } else {
+          return { ...item,
+            canTaceBribs: item.canTaceBribs.filter(item => {
+              if (state.allBribesCount === 0) {
+                return ( state.allBribesCount + action.numberOfBribes + item <= 5 );
+              } else {
+                return ( state.allBribesCount + action.numberOfBribes + item === 5 );
+              }
+            })
+          };
+        }
       });
 
-      return { ...state, partyForm: newPartyFormBribes};
+      return { ...state, partyForm: newPartyFormBribes, allBribesCount: state.allBribesCount + action.numberOfBribes};
     case SET_JACK_CHECKED:
       const newPlayerChecked = state.partyForm.map(item => {
         if (item.id !== action.id)  return item;
@@ -67,12 +85,12 @@ const partyFormReducer = (state = initialState, action) => {
         return { ...item,
           jackChecked: false,
           numberOfBribes: 0,
-          canTaceBribs: 5,
+          canTaceBribs: [0, 1, 2, 3, 4, 5],
           isJack: false,
         };
       });
 
-      return { ...state, partyForm: partyFormReset, jackCount: 0 };
+      return { ...state, partyForm: partyFormReset, jackCount: 0, allBribesCount: 0 };
     default:
      return state;
   }

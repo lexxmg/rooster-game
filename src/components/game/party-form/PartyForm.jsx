@@ -31,10 +31,10 @@ const PartyForm = (props) => {
         <div className="party-form__content">
           {
             partyForm.map(item => {
-              const bribes = [];
-              for (let i = 0; i <= item.canTaceBribs; i++) {
-                bribes.push(i);
-              }
+              // const bribes = [];
+              // for (let i = 0; i <= item.canTaceBribs; i++) {
+              //   bribes.push(i);
+              // }
               return (
                 <div className="party-form__player party-form-player" key={item.id}>
                   <div className="party-form-player-title__container">
@@ -61,7 +61,7 @@ const PartyForm = (props) => {
                   </div>
 
                   {
-                    bribes.map((el, j) => {
+                    item.canTaceBribs.map((el, j) => {
                       return (
                         <button
                           className="" key={j}
