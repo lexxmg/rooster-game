@@ -24,7 +24,7 @@ const gameReducer = (state = initialSate, action) => {
       return {...state, party: [ ...state.party,
         {
           id: (+new Date()).toString(16),
-          data, players: [action.players]
+          data, players: [ ...action.players ]
         }
       ]};
     default: return state;

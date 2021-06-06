@@ -5,7 +5,8 @@ import React from 'react';
 const PartyForm = (props) => {
   const { setShowForm, setJackChecked,
     partyForm, setOfBribes, jackCount,
-    partyFormReset, setOfBribesFormParty
+    partyFormReset, setOfBribesFormParty,
+    //players
   } = props;
 
   const declOfNum = (number, titles) => {
@@ -86,6 +87,7 @@ const PartyForm = (props) => {
                 setOfBribes(item.id, item.numberOfBribes, item.jackChecked);
               });
               partyFormReset();
+              
               setShowForm(false);
             }}>применить
           </button>
